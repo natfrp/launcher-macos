@@ -1,0 +1,29 @@
+//
+//  LogoView.swift
+//  SakuraLauncher
+//
+//  Created by FENGberd on 6/1/21.
+//
+
+import SwiftUI
+
+struct LogoView: View {
+    var body: some View {
+        HStack {
+            Spacer()
+            Image("Logo")
+                .frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .clipShape(Circle())
+                .shadow(radius: 8)
+            Spacer()
+        }
+        .padding(.top, 4)
+        .padding(.bottom, 24)
+    }
+}
+
+struct LogoView_Previews: PreviewProvider {
+    static var previews: some View {
+        LogoView()
+    }
+}
