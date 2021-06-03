@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var currentTab = TabItemView.Tabs.about
+    
     var body: some View {
-        HStack {
+        HStack (spacing: 0) {
             sidebar
             content
         }
@@ -18,24 +20,35 @@ struct ContentView: View {
     var sidebar: some View {
         List {
             LogoView()
-            TabItemView(title: "隧道", iconImage: "server.rack")
-            TabItemView(title: "日志", iconImage: "doc.text")
-            TabItemView(title: "设置", iconImage: "gearshape")
-            TabItemView(title: "关于", iconImage: "info.circle")
+            TabItemView(title: "隧道", iconImage: "server.rack", target: .tunnel, current: $currentTab)
+            TabItemView(title: "日志", iconImage: "doc.text", target: .log, current: $currentTab)
+            TabItemView(title: "设置", iconImage: "gearshape", target: .settings, current: $currentTab)
+            TabItemView(title: "关于", iconImage: "info.circle", target: .about, current: $currentTab)
         }
         .frame(width: 180)
         .listStyle(SidebarListStyle())
     }
     
+    @ViewBuilder
     var content: some View {
-        List {
-            Text("@fengberd: hAoYe")
+        switch currentTab {
+        case .tunnel:
+            TunnelTab()
+        case .log:
+            LogTab()
+        case .settings:
+            SettingsTab()
+        case .about:
+            AboutTab()
         }
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewLayout(.fixed(width: 782, height: 500))
     }
 }
+#endif

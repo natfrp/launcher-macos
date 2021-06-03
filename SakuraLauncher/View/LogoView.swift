@@ -22,8 +22,10 @@ struct LogoView: View {
     }
 }
 
+#if DEBUG
 struct LogoView_Previews: PreviewProvider {
     static var previews: some View {
         LogoView()
     }
 }
+#endif

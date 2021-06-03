@@ -1,5 +1,5 @@
 //
-//  TunnelTab.swift
+//  LogTab.swift
 //  SakuraLauncher
 //
 //  Created by FENGberd on 6/3/21.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct TunnelTab: View {
+struct LogTab: View {
     var body: some View {
         VStack (alignment: .leading) {
-            Text("隧道")
+            Text("日志")
                 .font(.title)
                 .padding(.leading, 24)
             
@@ -22,9 +22,9 @@ struct TunnelTab: View {
 }
 
 #if DEBUG
-struct TunnelTab_Previews: PreviewProvider {
+struct LogTab_Previews: PreviewProvider {
     static var previews: some View {
-        TunnelTab()
+        LogTab()
     }
 }
 #endif

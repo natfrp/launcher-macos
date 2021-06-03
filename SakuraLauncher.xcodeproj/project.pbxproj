@@ -13,6 +13,10 @@
 		F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6CA0266650B200FF041B /* Preview Assets.xcassets */; };
 		F66A6CAB2666517400FF041B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6CAA2666517400FF041B /* LogoView.swift */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
+		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
+		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
+		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
+		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakuraLauncher.entitlements; sourceTree = "<group>"; };
 		F66A6CAA2666517400FF041B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		F698709726665C0B0040CF81 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
+		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
+		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
+		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
+		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,10 @@
 			children = (
 				F66A6CAA2666517400FF041B /* LogoView.swift */,
 				F698709726665C0B0040CF81 /* TabItemView.swift */,
+				F6E0DE1B2668E00700299C58 /* TunnelTab.swift */,
+				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
+				F6B47BF7266900540051B308 /* SettingsTab.swift */,
+				F6B47BF92669005C0051B308 /* LogTab.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -154,10 +166,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */,
 				F66A6C9C266650B100FF041B /* ContentView.swift in Sources */,
+				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
 				F66A6CAB2666517400FF041B /* LogoView.swift in Sources */,
 				F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */,
+				F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */,
+				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
