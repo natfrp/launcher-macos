@@ -22,8 +22,6 @@ struct TabItemView: View {
     
     @Binding var current: Tabs
     
-    @State private var hover = false
-    
     var body: some View {
         Button (action: {
             current = target
@@ -42,20 +40,9 @@ struct TabItemView: View {
             .contentShape(Capsule())
         }
         .buttonStyle(PlainButtonStyle())
-        .background(background)
-        .animation(.default.speed(1.3), value: current)
-        .animation(.default.speed(1.7), value: hover)
-        .onHover { isHovered in self.hover = isHovered }
+        .background(current == target ? Color.secondary.opacity(0.15) : Color.clear)
+        .animation(.default.speed(1.5), value: current)
         .clipShape(Capsule())
-    }
-    
-    var background: Color {
-        if (current == target) {
-            return Color.secondary.opacity(0.2)
-        } else if (hover) {
-            return Color.secondary.opacity(0.1)
-        }
-        return Color.clear
     }
 }
 

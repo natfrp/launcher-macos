@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         HStack (spacing: 0) {
             sidebar
-            content
+            content.transition(.opacity.animation(.default.speed(2.5)))
         }
     }
     
