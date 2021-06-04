@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
 		F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */; };
 		F66A6C9C266650B100FF041B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C9B266650B100FF041B /* ContentView.swift */; };
 		F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6C9D266650B200FF041B /* Assets.xcassets */; };
@@ -15,11 +16,14 @@
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
+		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
+		F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C4786B266A17B8003E524C /* TunnelModel.swift */; };
 		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
 		F66A6C96266650B100FF041B /* SakuraLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakuraLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakuraLauncherApp.swift; sourceTree = "<group>"; };
 		F66A6C9B266650B100FF041B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,6 +35,8 @@
 		F698709726665C0B0040CF81 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
+		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
 		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
 		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +71,8 @@
 		F66A6C98266650B100FF041B /* SakuraLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				F6C4786A266A17AE003E524C /* Model */,
+				F6C47867266A1529003E524C /* Helper */,
 				F66A6CA92666515A00FF041B /* View */,
 				F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */,
 				F66A6C9B266650B100FF041B /* ContentView.swift */,
@@ -89,12 +97,29 @@
 			children = (
 				F66A6CAA2666517400FF041B /* LogoView.swift */,
 				F698709726665C0B0040CF81 /* TabItemView.swift */,
+				F6430F65266A0281007C5DC3 /* TunnelItemView.swift */,
 				F6E0DE1B2668E00700299C58 /* TunnelTab.swift */,
 				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
 				F6B47BF7266900540051B308 /* SettingsTab.swift */,
 				F6B47BF92669005C0051B308 /* LogTab.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F6C47867266A1529003E524C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F6C47868266A1533003E524C /* Color.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F6C4786A266A17AE003E524C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F6C4786B266A17B8003E524C /* TunnelModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +193,9 @@
 			files = (
 				F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */,
 				F66A6C9C266650B100FF041B /* ContentView.swift in Sources */,
+				F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */,
+				F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */,
+				F6C47869266A1533003E524C /* Color.swift in Sources */,
 				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
 				F66A6CAB2666517400FF041B /* LogoView.swift in Sources */,

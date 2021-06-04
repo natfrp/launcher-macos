@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var currentTab = TabItemView.Tabs.about
+    @State var tunnels: [TunnelModel] = []
+    @State var currentTab = TabItemView.Tabs.tunnel
     
     var body: some View {
         HStack (spacing: 0) {
@@ -33,7 +34,7 @@ struct ContentView: View {
     var content: some View {
         switch currentTab {
         case .tunnel:
-            TunnelTab()
+            TunnelTab(tunnels: $tunnels)
         case .log:
             LogTab()
         case .settings:

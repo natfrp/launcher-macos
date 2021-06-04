@@ -47,17 +47,9 @@ struct TabItemView: View {
 }
 
 #if DEBUG
-struct TabItemView_Previews_2 : View {
-    @State var currentTab = TabItemView.Tabs.log
-    
-    var body: some View {
-        TabItemView(title: "SAMPLE TAB", iconImage: "gearshape", target: .about, current: $currentTab)
-    }
-}
-
 struct TabItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TabItemView_Previews_2()
+        TabItemView(title: "SAMPLE TAB", iconImage: "gearshape", target: .about, current: .constant(.log))
     }
 }
 #endif
