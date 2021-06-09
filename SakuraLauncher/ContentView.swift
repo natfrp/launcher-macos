@@ -8,16 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var logs: [LogModel] = []
+    @State private var logFilters: [String: Int] = [:]
+
     @State var tunnels: [TunnelModel] = []
     @State var currentTab = TabItemView.Tabs.tunnel
-    
+
+    func Log(l: LogModel) {
+        logs.append(l)
+        if logFilters[l.source] == nil {
+            logFilters[l.source] = 1
+        } else {
+            logFilters[l.source]! += 1
+        }
+
+        while logs.count > 4096 {
+            let del = logs.remove(at: 0)
+            logFilters[del.source]! -= 1
+        }
+    }
+
     var body: some View {
-        HStack (spacing: 0) {
+        HStack(spacing: 0) {
             sidebar
             content.transition(.opacity.animation(.default.speed(2.5)))
         }
     }
-    
+
     var sidebar: some View {
         List {
             LogoView()
@@ -29,14 +46,14 @@ struct ContentView: View {
         .frame(width: 180)
         .listStyle(SidebarListStyle())
     }
-    
+
     @ViewBuilder
     var content: some View {
         switch currentTab {
         case .tunnel:
             TunnelTab(tunnels: $tunnels)
         case .log:
-            LogTab()
+            LogTab(logs: $logs, filters: $logFilters)
         case .settings:
             SettingsTab()
         case .about:
