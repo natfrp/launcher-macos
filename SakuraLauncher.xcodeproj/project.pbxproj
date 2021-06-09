@@ -19,6 +19,7 @@
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
 		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
 		F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C4786B266A17B8003E524C /* TunnelModel.swift */; };
+		F6D03A862670C7250023D7B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D03A852670C7250023D7B6 /* AppDelegate.swift */; };
 		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
 		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
+		F6D03A852670C7250023D7B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
 		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 				F6C47867266A1529003E524C /* Helper */,
 				F66A6CA92666515A00FF041B /* View */,
 				F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */,
+				F6D03A852670C7250023D7B6 /* AppDelegate.swift */,
 				F66A6C9B266650B100FF041B /* ContentView.swift */,
 				F66A6C9D266650B200FF041B /* Assets.xcassets */,
 				F66A6CA2266650B200FF041B /* Info.plist */,
@@ -202,6 +205,7 @@
 				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
 				F66A6CAB2666517400FF041B /* LogoView.swift in Sources */,
+				F6D03A862670C7250023D7B6 /* AppDelegate.swift in Sources */,
 				F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */,
 				F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */,
 				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
