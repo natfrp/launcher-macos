@@ -12,7 +12,7 @@ struct LogoView: View {
         HStack {
             Spacer()
             Image("Logo")
-                .frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 120, height: 120, alignment: .center)
                 .clipShape(Circle())
                 .shadow(radius: 8)
             Spacer()
@@ -23,9 +23,9 @@ struct LogoView: View {
 }
 
 #if DEBUG
-struct LogoView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogoView()
+    struct LogoView_Previews: PreviewProvider {
+        static var previews: some View {
+            LogoView()
+        }
     }
-}
 #endif

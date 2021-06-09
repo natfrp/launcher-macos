@@ -63,10 +63,10 @@ struct ContentView: View {
 }
 
 #if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .previewLayout(.fixed(width: 782, height: 500))
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+                .previewLayout(.fixed(width: 782, height: 500))
+        }
     }
-}
 #endif

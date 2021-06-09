@@ -7,15 +7,15 @@
 
 import Foundation
 
-class TunnelModel : ObservableObject {
+class TunnelModel: ObservableObject {
     var id: Int
     var name: String
     var node: String
     var type: String
     var description: String
-    
+
     @Published var enabled: Bool = false
-    
+
     init(id: Int = -1, name: String = "", node: String = "", type: String = "", description: String = "") {
         self.id = id
         self.name = name
@@ -23,6 +23,6 @@ class TunnelModel : ObservableObject {
         self.type = type
         self.description = description
     }
-    
-    // TODO
+
+    // TODO:
 }

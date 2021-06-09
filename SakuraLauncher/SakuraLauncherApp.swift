@@ -14,7 +14,7 @@ struct SakuraLauncherApp: App {
             ContentView()
                 .frame(minWidth: 725, idealWidth: 782, minHeight: 400, idealHeight: 500)
                 .navigationTitle("Sakura Launcher")
-                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willUpdateNotification), perform: {_ in
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willUpdateNotification), perform: { _ in
                     for window in NSApplication.shared.windows {
                         window.standardWindowButton(.zoomButton)!.isHidden = true
                         window.isMovableByWindowBackground = true

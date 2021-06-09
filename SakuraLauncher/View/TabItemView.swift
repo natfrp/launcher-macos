@@ -14,18 +14,18 @@ struct TabItemView: View {
         case settings
         case about
     }
-    
+
     let title: String
     let iconImage: String
-    
+
     let target: Tabs
-    
+
     @Binding var current: Tabs
-    
+
     var body: some View {
-        Button (action: {
+        Button(action: {
             current = target
-        }){
+        }) {
             HStack {
                 Image(systemName: iconImage)
                     .font(.system(size: 20))
@@ -33,9 +33,9 @@ struct TabItemView: View {
                     .padding(.trailing, 8)
                 Text(title)
                     .font(.system(size: 16))
-                    .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             }
-            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: 48, maxHeight: 48, alignment: .leading)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 48, maxHeight: 48, alignment: .leading)
             .padding(.leading, 20)
             .contentShape(Capsule())
         }
@@ -47,9 +47,9 @@ struct TabItemView: View {
 }
 
 #if DEBUG
-struct TabItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabItemView(title: "SAMPLE TAB", iconImage: "gearshape", target: .about, current: .constant(.log))
+    struct TabItemView_Previews: PreviewProvider {
+        static var previews: some View {
+            TabItemView(title: "SAMPLE TAB", iconImage: "gearshape", target: .about, current: .constant(.log))
+        }
     }
-}
 #endif
