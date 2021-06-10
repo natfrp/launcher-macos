@@ -16,6 +16,9 @@ struct SakuraLauncherApp: App {
             ContentView()
                 .frame(minWidth: 725, idealWidth: 782, minHeight: 400, idealHeight: 500)
                 .navigationTitle("Sakura Launcher")
+                .onAppear {
+                    appDelegate.isPreview = false
+                }
         }
         .windowStyle(HiddenTitleBarWindowStyle())
     }

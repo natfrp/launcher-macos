@@ -8,10 +8,16 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+    var isPreview = true
+
     var mainWindow: NSWindow?
     var statusBarItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if isPreview {
+            return
+        }
+
         mainWindow = NSApplication.shared.windows[0]
         if let window = mainWindow {
             window.delegate = self
