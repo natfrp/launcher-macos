@@ -5,7 +5,6 @@
 //  Created by FENGberd on 6/8/21.
 //
 
-import Foundation
 import SwiftUI
 
 class LogModel: ObservableObject, Hashable {

@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var model: LauncherModel
 
-    @State var currentTab = TabItemView.Tabs.tunnel
+    @State var currentTab = TabItemView.Tabs.settings
 
     var body: some View {
         HStack(spacing: 0) {
@@ -23,7 +23,9 @@ struct ContentView: View {
         List {
             LogoView()
             TabItemView(title: "隧道", iconImage: "server.rack", target: .tunnel, current: $currentTab)
+                .disabled(model.user.status != .LoggedIn)
             TabItemView(title: "日志", iconImage: "doc.text", target: .log, current: $currentTab)
+                .disabled(model.user.status != .LoggedIn)
             TabItemView(title: "设置", iconImage: "gearshape", target: .settings, current: $currentTab)
             TabItemView(title: "关于", iconImage: "info.circle", target: .about, current: $currentTab)
         }
