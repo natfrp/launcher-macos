@@ -89,7 +89,7 @@ struct LogTab: View {
                 LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: "", data: "使用 [us-sj-cuvip.sakurafrp.com:2333] 来连接到你的隧道", levelColor: LogModel.infoColor),
                 LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: "", data: "或使用 IP 地址连接（不推荐）：[114.51.4.19:19810]", levelColor: LogModel.infoColor),
             ]), filters: .constant([:]))
-                .previewLayout(.fixed(width: 782, height: 500))
+                .previewLayout(.fixed(width: 602, height: 500))
         }
     }
 #endif
