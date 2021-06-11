@@ -39,7 +39,7 @@ struct ContentView: View {
         case .tunnel:
             TunnelTab(tunnels: $model.tunnels)
         case .log:
-            LogTab(logs: $model.logs, filters: $model.logFilters)
+            LogTab()
         case .settings:
             SettingsTab()
         case .about:

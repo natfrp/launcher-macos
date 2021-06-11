@@ -8,6 +8,25 @@
 import Foundation
 
 class LauncherModel: ObservableObject {
+    // REGION: Settings
+    
+    @Published var logTextWrapping: Bool {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "logTextWrapping") }
+    }
+    
+    @Published var disableNotification: Bool {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "disableNotification") }
+    }
+    
+    init() {
+        UserDefaults.standard.register(defaults: [
+            "logTextWrapping": true,
+            "disableNotification": false,
+        ])
+        logTextWrapping = UserDefaults.standard.bool(forKey: "logTextWrapping")
+        disableNotification = UserDefaults.standard.bool(forKey: "disableNotification")
+    }
+    
     // REGION: User
     
     struct UserState {
@@ -28,7 +47,7 @@ class LauncherModel: ObservableObject {
     @Published var logs: [LogModel] = []
     @Published var logFilters: [String: Int] = [:]
 
-    func Log(l: LogModel) {
+    func log(_ l: LogModel) {
         logs.append(l)
         if logFilters[l.source] == nil {
             logFilters[l.source] = 1
