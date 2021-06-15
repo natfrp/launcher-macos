@@ -18,7 +18,13 @@ class LauncherModel: ObservableObject {
         willSet { UserDefaults.standard.setValue(newValue, forKey: "disableNotification") }
     }
     
-    init() {
+    init(preview: Bool) {
+        if preview {
+            logTextWrapping = true
+            disableNotification = false
+            return
+        }
+
         UserDefaults.standard.register(defaults: [
             "logTextWrapping": true,
             "disableNotification": false,
@@ -27,20 +33,25 @@ class LauncherModel: ObservableObject {
         disableNotification = UserDefaults.standard.bool(forKey: "disableNotification")
     }
     
-    // REGION: User
+    @Published var connected: Bool = false
     
-    struct UserState {
-        enum Status {
-            case NoLogin, Pending, LoggedIn
-        }
-        
-        var id: Int = -1
-        var name = ""
-        var meta = ""
-        var status = Status.NoLogin
-    }
+    // REGION: User
 
-    @Published var user = UserState()
+    @Published var user = User()
+    
+    func login(_ token: String, autologin: Bool = false) -> String? {
+        if user.status != .noLogin {
+            return user.status == .pending ? "操作进行中, 请稍候" : "用户已登录"
+        }
+        if token.count < 16 {
+            return "访问密钥无效, 请检查您的输入是否正确"
+        }
+        user.status = .pending
+        
+        
+        
+        return nil
+    }
     
     // REGION: Logging
     

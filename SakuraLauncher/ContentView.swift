@@ -23,9 +23,9 @@ struct ContentView: View {
         List {
             LogoView()
             TabItemView(title: "隧道", iconImage: "server.rack", target: .tunnel, current: $currentTab)
-                .disabled(model.user.status != .LoggedIn)
+                .disabled(model.user.status != .loggedIn)
             TabItemView(title: "日志", iconImage: "doc.text", target: .log, current: $currentTab)
-                .disabled(model.user.status != .LoggedIn)
+                .disabled(model.user.status != .loggedIn)
             TabItemView(title: "设置", iconImage: "gearshape", target: .settings, current: $currentTab)
             TabItemView(title: "关于", iconImage: "info.circle", target: .about, current: $currentTab)
         }
@@ -35,15 +35,24 @@ struct ContentView: View {
 
     @ViewBuilder
     var content: some View {
-        switch currentTab {
-        case .tunnel:
-            TunnelTab(tunnels: $model.tunnels)
-        case .log:
-            LogTab()
-        case .settings:
-            SettingsTab()
-        case .about:
-            AboutTab()
+        VStack(spacing: 0) {
+            switch currentTab {
+            case .tunnel:
+                TunnelTab(tunnels: $model.tunnels)
+            case .log:
+                LogTab()
+            case .settings:
+                SettingsTab()
+            case .about:
+                AboutTab()
+            }
+            if !model.connected {
+                Text("未连接到守护进程, 大部分功能将不可用, 请尝试重启启动器")
+                    .font(.system(size: 18))
+                    .padding(4)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.orange)
+            }
         }
     }
 }
@@ -53,7 +62,7 @@ struct ContentView: View {
         static var previews: some View {
             ContentView()
                 .previewLayout(.fixed(width: 782, height: 500))
-                .environmentObject(LauncherModel())
+                .environmentObject(LauncherModel(preview: true))
         }
     }
 #endif

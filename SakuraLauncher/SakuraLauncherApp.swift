@@ -11,7 +11,7 @@ import SwiftUI
 struct SakuraLauncherApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @StateObject private var model = LauncherModel()
+    @StateObject private var model = LauncherModel(preview: false)
 
     var body: some Scene {
         WindowGroup {

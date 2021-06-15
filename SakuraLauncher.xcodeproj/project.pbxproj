@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,11 @@
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
 		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
 		F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C4786B266A17B8003E524C /* TunnelModel.swift */; };
+		F6CDC4492678524E00F9872D /* node.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4452678524E00F9872D /* node.pb.swift */; };
+		F6CDC44A2678524E00F9872D /* tunnel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4462678524E00F9872D /* tunnel.pb.swift */; };
+		F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4472678524E00F9872D /* user.pb.swift */; };
+		F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4482678524E00F9872D /* base.pb.swift */; };
+		F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F6CDC44E267852A300F9872D /* SwiftProtobuf */; };
 		F6D03A862670C7250023D7B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D03A852670C7250023D7B6 /* AppDelegate.swift */; };
 		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
@@ -42,6 +47,10 @@
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
 		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
+		F6CDC4452678524E00F9872D /* node.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = node.pb.swift; sourceTree = "<group>"; };
+		F6CDC4462678524E00F9872D /* tunnel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tunnel.pb.swift; sourceTree = "<group>"; };
+		F6CDC4472678524E00F9872D /* user.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.pb.swift; sourceTree = "<group>"; };
+		F6CDC4482678524E00F9872D /* base.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = base.pb.swift; sourceTree = "<group>"; };
 		F6D03A852670C7250023D7B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
 		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +100,7 @@
 			children = (
 				F6C47867266A1529003E524C /* Helper */,
 				F6C4786A266A17AE003E524C /* Model */,
+				F6CDC4442678523900F9872D /* Proto */,
 				F62992D626776ABE0056EC1D /* Tabs */,
 				F66A6CA92666515A00FF041B /* View */,
 				F66A6CA2266650B200FF041B /* Info.plist */,
@@ -139,6 +150,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F6CDC4442678523900F9872D /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				F6CDC4482678524E00F9872D /* base.pb.swift */,
+				F6CDC4452678524E00F9872D /* node.pb.swift */,
+				F6CDC4462678524E00F9872D /* tunnel.pb.swift */,
+				F6CDC4472678524E00F9872D /* user.pb.swift */,
+			);
+			path = Proto;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +177,9 @@
 			dependencies = (
 			);
 			name = SakuraLauncher;
+			packageProductDependencies = (
+				F6CDC44E267852A300F9872D /* SwiftProtobuf */,
+			);
 			productName = SakuraLauncher;
 			productReference = F66A6C96266650B100FF041B /* SakuraLauncher.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +207,9 @@
 				Base,
 			);
 			mainGroup = F66A6C8D266650B100FF041B;
+			packageReferences = (
+				F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+			);
 			productRefGroup = F66A6C97266650B100FF041B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -214,6 +242,7 @@
 				F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */,
 				F6C47869266A1533003E524C /* Color.swift in Sources */,
 				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
+				F6CDC44A2678524E00F9872D /* tunnel.pb.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
 				F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */,
 				F66A6CAB2666517400FF041B /* LogoView.swift in Sources */,
@@ -221,6 +250,9 @@
 				F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */,
 				F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */,
 				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
+				F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */,
+				F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */,
+				F6CDC4492678524E00F9872D /* node.pb.swift in Sources */,
 				F616B831266F72F700596A88 /* LogModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +445,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.17.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F6CDC44E267852A300F9872D /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F66A6C8E266650B100FF041B /* Project object */;
 }
