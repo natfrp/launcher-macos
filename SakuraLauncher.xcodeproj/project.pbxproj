@@ -58,6 +58,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F62992D626776ABE0056EC1D /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				F6E0DE1B2668E00700299C58 /* TunnelTab.swift */,
+				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
+				F6B47BF7266900540051B308 /* SettingsTab.swift */,
+				F6B47BF92669005C0051B308 /* LogTab.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
 		F66A6C8D266650B100FF041B = {
 			isa = PBXGroup;
 			children = (
@@ -77,15 +88,16 @@
 		F66A6C98266650B100FF041B /* SakuraLauncher */ = {
 			isa = PBXGroup;
 			children = (
-				F6C4786A266A17AE003E524C /* Model */,
 				F6C47867266A1529003E524C /* Helper */,
+				F6C4786A266A17AE003E524C /* Model */,
+				F62992D626776ABE0056EC1D /* Tabs */,
 				F66A6CA92666515A00FF041B /* View */,
-				F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */,
+				F66A6CA2266650B200FF041B /* Info.plist */,
+				F66A6C9D266650B200FF041B /* Assets.xcassets */,
+				F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */,
 				F6D03A852670C7250023D7B6 /* AppDelegate.swift */,
 				F66A6C9B266650B100FF041B /* ContentView.swift */,
-				F66A6C9D266650B200FF041B /* Assets.xcassets */,
-				F66A6CA2266650B200FF041B /* Info.plist */,
-				F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */,
+				F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */,
 				F66A6C9F266650B200FF041B /* Preview Content */,
 			);
 			path = SakuraLauncher;
@@ -105,10 +117,6 @@
 				F66A6CAA2666517400FF041B /* LogoView.swift */,
 				F698709726665C0B0040CF81 /* TabItemView.swift */,
 				F6430F65266A0281007C5DC3 /* TunnelItemView.swift */,
-				F6E0DE1B2668E00700299C58 /* TunnelTab.swift */,
-				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
-				F6B47BF7266900540051B308 /* SettingsTab.swift */,
-				F6B47BF92669005C0051B308 /* LogTab.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

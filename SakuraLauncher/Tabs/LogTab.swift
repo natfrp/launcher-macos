@@ -72,7 +72,7 @@ struct LogTab: View {
 
     private func logLine(_ l: LogModel) -> some View {
         Text("\(l.time) ").foregroundColor(timeColor) +
-            Text("\(l.level) ").foregroundColor(l.levelColor) +
+            Text("\(l.level.rawValue) ").foregroundColor(l.levelColor()) +
             Text("\(l.source) ").foregroundColor(sourceColor) +
             Text(l.data).foregroundColor(dataColor)
     }
@@ -84,15 +84,15 @@ struct LogTab: View {
             LogTab()
                 .previewLayout(.fixed(width: 602, height: 500))
                 .environmentObject({ () -> LauncherModel in
-                    let m = LauncherModel()
+                    let m = LauncherModel(preview: true)
                     for l in [
-                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: "I", data: "PA47", levelColor: LogModel.infoColor),
-                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: "W", data: "PA47!!", levelColor: LogModel.warningColor),
-                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: "E", data: "PA47!!!", levelColor: LogModel.errorColor),
-                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "2021/01/01 23:33:33", level: "I", data: "[XXXXXXXX] [wdn**666.JESUS_TUNNEL] 隧道启动成功", levelColor: LogModel.infoColor),
-                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: "", data: "UDP 类型隧道启动成功", levelColor: LogModel.infoColor),
-                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: "", data: "使用 [us-sj-cuvip.sakurafrp.com:2333] 来连接到你的隧道", levelColor: LogModel.infoColor),
-                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: "", data: "或使用 IP 地址连接（不推荐）：[114.51.4.19:19810]", levelColor: LogModel.infoColor),
+                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .info, data: "PA47"),
+                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .warning, data: "PA47!!"),
+                        LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .error, data: "PA47!!!"),
+                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "2021/01/01 23:33:33", level: .info, data: "[XXXXXXXX] [wdn**666.JESUS_TUNNEL] 隧道启动成功"),
+                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "UDP 类型隧道启动成功"),
+                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "使用 [us-sj-cuvip.sakurafrp.com:2333] 来连接到你的隧道"),
+                        LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "或使用 IP 地址连接（不推荐）：[114.51.4.19:19810]"),
                     ] {
                         m.log(l)
                     }
