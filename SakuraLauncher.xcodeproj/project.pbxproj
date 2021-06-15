@@ -16,7 +16,6 @@
 		F66A6CAB2666517400FF041B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6CAA2666517400FF041B /* LogoView.swift */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
-		F6A5D446267348AF00F20951 /* Natfrp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D445267348AF00F20951 /* Natfrp.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
 		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
@@ -39,7 +38,6 @@
 		F66A6CAA2666517400FF041B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		F698709726665C0B0040CF81 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		F6A5D441267344B700F20951 /* LauncherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModel.swift; sourceTree = "<group>"; };
-		F6A5D445267348AF00F20951 /* Natfrp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Natfrp.swift; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
 		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				F66A6CA2266650B200FF041B /* Info.plist */,
 				F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */,
 				F66A6C9F266650B200FF041B /* Preview Content */,
-				F6A5D445267348AF00F20951 /* Natfrp.swift */,
 			);
 			path = SakuraLauncher;
 			sourceTree = "<group>";
@@ -205,7 +202,6 @@
 			files = (
 				F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */,
 				F66A6C9C266650B100FF041B /* ContentView.swift in Sources */,
-				F6A5D446267348AF00F20951 /* Natfrp.swift in Sources */,
 				F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */,
 				F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */,
 				F6C47869266A1533003E524C /* Color.swift in Sources */,
