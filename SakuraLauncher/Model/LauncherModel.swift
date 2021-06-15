@@ -35,6 +35,8 @@ class LauncherModel: ObservableObject {
     
     @Published var connected: Bool = false
     
+    let pipe = SocketClient("/tmp/")
+
     // REGION: User
 
     @Published var user = User()

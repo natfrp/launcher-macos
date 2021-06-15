@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
+		F62992D826776B700056EC1D /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62992D726776B700056EC1D /* SocketClient.swift */; };
 		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
 		F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */; };
 		F66A6C9C266650B100FF041B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C9B266650B100FF041B /* ContentView.swift */; };
@@ -25,6 +26,7 @@
 		F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4472678524E00F9872D /* user.pb.swift */; };
 		F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4482678524E00F9872D /* base.pb.swift */; };
 		F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F6CDC44E267852A300F9872D /* SwiftProtobuf */; };
+		F6CDC454267879C600F9872D /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = F6CDC453267879C600F9872D /* Socket */; };
 		F6D03A862670C7250023D7B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D03A852670C7250023D7B6 /* AppDelegate.swift */; };
 		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
@@ -32,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		F62992D726776B700056EC1D /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
 		F66A6C96266650B100FF041B /* SakuraLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakuraLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakuraLauncherApp.swift; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */,
+				F6CDC454267879C600F9872D /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				F6C47868266A1533003E524C /* Color.swift */,
+				F62992D726776B700056EC1D /* SocketClient.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 			name = SakuraLauncher;
 			packageProductDependencies = (
 				F6CDC44E267852A300F9872D /* SwiftProtobuf */,
+				F6CDC453267879C600F9872D /* Socket */,
 			);
 			productName = SakuraLauncher;
 			productReference = F66A6C96266650B100FF041B /* SakuraLauncher.app */;
@@ -209,6 +215,7 @@
 			mainGroup = F66A6C8D266650B100FF041B;
 			packageReferences = (
 				F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */,
 			);
 			productRefGroup = F66A6C97266650B100FF041B /* Products */;
 			projectDirPath = "";
@@ -241,6 +248,7 @@
 				F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */,
 				F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */,
 				F6C47869266A1533003E524C /* Color.swift in Sources */,
+				F62992D826776B700056EC1D /* SocketClient.swift in Sources */,
 				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
 				F6CDC44A2678524E00F9872D /* tunnel.pb.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
@@ -455,6 +463,14 @@
 				minimumVersion = 1.17.0;
 			};
 		};
+		F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.200;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -462,6 +478,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */;
 			productName = SwiftProtobuf;
+		};
+		F6CDC453267879C600F9872D /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
