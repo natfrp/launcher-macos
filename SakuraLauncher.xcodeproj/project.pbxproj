@@ -16,6 +16,7 @@
 		F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6C9D266650B200FF041B /* Assets.xcassets */; };
 		F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6CA0266650B200FF041B /* Preview Assets.xcassets */; };
 		F66A6CAB2666517400FF041B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6CAA2666517400FF041B /* LogoView.swift */; };
+		F671F41E26790121003A4F87 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671F41D26790121003A4F87 /* NodeModel.swift */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
@@ -46,6 +47,7 @@
 		F66A6CA2266650B200FF041B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakuraLauncher.entitlements; sourceTree = "<group>"; };
 		F66A6CAA2666517400FF041B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		F671F41D26790121003A4F87 /* NodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModel.swift; sourceTree = "<group>"; };
 		F698709726665C0B0040CF81 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		F6A5D441267344B700F20951 /* LauncherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModel.swift; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				F616B830266F72F700596A88 /* LogModel.swift */,
+				F671F41D26790121003A4F87 /* NodeModel.swift */,
 				F6C4786B266A17B8003E524C /* TunnelModel.swift */,
 				F6A5D441267344B700F20951 /* LauncherModel.swift */,
 			);
@@ -264,6 +267,7 @@
 				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
 				F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */,
 				F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */,
+				F671F41E26790121003A4F87 /* NodeModel.swift in Sources */,
 				F6CDC4492678524E00F9872D /* node.pb.swift in Sources */,
 				F616B831266F72F700596A88 /* LogModel.swift in Sources */,
 			);
