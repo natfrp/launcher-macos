@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
+		F62992D5267763A70056EC1D /* SakuraFrpService.app in Resources */ = {isa = PBXBuildFile; fileRef = F62992D4267763A70056EC1D /* SakuraFrpService.app */; };
 		F62992D826776B700056EC1D /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62992D726776B700056EC1D /* SocketClient.swift */; };
 		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
 		F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		F62992D4267763A70056EC1D /* SakuraFrpService.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = SakuraFrpService.app; path = ../../Projects/SakuraFrpLauncher/SakuraFrpService.macOS/bin/Release/SakuraFrpService.app; sourceTree = "<group>"; };
 		F62992D726776B700056EC1D /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
 		F66A6C96266650B100FF041B /* SakuraLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakuraLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 		F66A6C8D266650B100FF041B = {
 			isa = PBXGroup;
 			children = (
+				F62992D4267763A70056EC1D /* SakuraFrpService.app */,
 				F66A6C98266650B100FF041B /* SakuraLauncher */,
 				F66A6C97266650B100FF041B /* Products */,
 			);
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F62992D5267763A70056EC1D /* SakuraFrpService.app in Resources */,
 				F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */,
 				F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */,
 			);
