@@ -21,6 +21,7 @@
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
+		F6B5CCAE2679BE8B0014E38A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B5CCAD2679BE8B0014E38A /* Utils.swift */; };
 		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
 		F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C4786B266A17B8003E524C /* TunnelModel.swift */; };
 		F6CDC4492678524E00F9872D /* node.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4452678524E00F9872D /* node.pb.swift */; };
@@ -52,6 +53,7 @@
 		F6A5D441267344B700F20951 /* LauncherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModel.swift; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
+		F6B5CCAD2679BE8B0014E38A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
 		F6CDC4452678524E00F9872D /* node.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = node.pb.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				F6C47868266A1533003E524C /* Color.swift */,
 				F62992D726776B700056EC1D /* SocketClient.swift */,
+				F6B5CCAD2679BE8B0014E38A /* Utils.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
 				F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */,
 				F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */,
+				F6B5CCAE2679BE8B0014E38A /* Utils.swift in Sources */,
 				F671F41E26790121003A4F87 /* NodeModel.swift in Sources */,
 				F6CDC4492678524E00F9872D /* node.pb.swift in Sources */,
 				F616B831266F72F700596A88 /* LogModel.swift in Sources */,

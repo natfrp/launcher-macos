@@ -34,11 +34,27 @@ class LauncherModel: ObservableObject {
         logTextWrapping = UserDefaults.standard.bool(forKey: "logTextWrapping")
         disableNotification = UserDefaults.standard.bool(forKey: "disableNotification")
 
-        // TODO: Start
+        logDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+
+        pipe.onPushMessage = onServerPush
+
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [self] _ in
+            if pipe.connected {
+                return
+            }
+            connected = false
+
+            if !pipe.connect() {
+                return
+            }
+            if !syncUser() || !syncAll() {
+                pipe.close()
+                return
+            }
+            connected = true
+        }
     }
 
-    }
-    
     @Published var connected: Bool = false
     
     let pipe = SocketClient("/tmp/")
@@ -72,17 +88,62 @@ class LauncherModel: ObservableObject {
     @Published var logs: [LogModel] = []
     @Published var logFilters: [String: Int] = [:]
 
-    func log(_ l: LogModel) {
-        logs.append(l)
-        if logFilters[l.source] == nil {
-            logFilters[l.source] = 1
+    private var logDateFormatter = DateFormatter()
+
+    func log(_ l: Log) {
+        let entry = LogModel(source: l.source, data: l.data)
+        if l.category == 0 // CATEGORY_FRPC
+        {
+            entry.source = "Tunnel/" + entry.source
+            if let match = LogModel.pattern.firstMatch(in: l.data, range: NSRange(l.data.startIndex..., in: l.data)) {
+                entry.time = l.data.groupOf(match, group: "Time")
+                entry.data = l.data.groupOf(match, group: "Content")
+                switch l.data.groupOf(match, group: "Level") {
+                case "W":
+                    entry.level = .warning
+                case "E":
+                    entry.level = .error
+                case "I":
+                    fallthrough
+                default:
+                    entry.level = .info
+                }
+            }
         } else {
-            logFilters[l.source]! += 1
+            entry.time = logDateFormatter.string(from: Utils.parseSakuraTime(seconds: Double(l.time)))
+            switch l.category {
+            case 2:
+                entry.level = .warning
+            case 3:
+                entry.level = .error
+            case 4: // Notice INFO
+                fallthrough
+            case 5: // Notice WARNING
+                fallthrough
+            case 6: // Notice ERROR
+                if !disableNotification {
+                    // TODO: Notification
+                }
+            case 1:
+                fallthrough
+            default:
+                entry.level = .info
+            }
         }
-        
+
+        logs.append(entry)
+        if logFilters[entry.source] == nil {
+            logFilters[entry.source] = 1
+        } else {
+            logFilters[entry.source]! += 1
+        }
+
         while logs.count > 4096 {
             let del = logs.remove(at: 0)
             logFilters[del.source]! -= 1
+            if logFilters[del.source]! == 0 {
+                logFilters.removeValue(forKey: del.source)
+            }
         }
     }
     
@@ -128,17 +189,15 @@ class LauncherModel_Preview: LauncherModel {
             $0.description_p = "berd.moe -> 127.0.0.1:8080"
         }, launcher: self))
 
-        for l in [
-            LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .info, data: "PA47"),
-            LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .warning, data: "PA47!!"),
-            LogModel(source: "Service", time: "2021/01/01 23:33:33", level: .error, data: "PA47!!!"),
-            LogModel(source: "Tunnel/JESUS_TUNNEL", time: "2021/01/01 23:33:33", level: .info, data: "[XXXXXXXX] [wdn**666.JESUS_TUNNEL] 隧道启动成功"),
-            LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "UDP 类型隧道启动成功"),
-            LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "使用 [us-sj-cuvip.sakurafrp.com:2333] 来连接到你的隧道"),
-            LogModel(source: "Tunnel/JESUS_TUNNEL", time: "", level: .none, data: "或使用 IP 地址连接（不推荐）：[114.51.4.19:19810]"),
-        ] {
-            log(l)
-        }
+        logs = [
+            LogModel(source: "Service", data: "PA47", time: "2021/01/01 23:33:33", level: .info),
+            LogModel(source: "Service", data: "PA47!!", time: "2021/01/01 23:33:33", level: .warning),
+            LogModel(source: "Service", data: "PA47!!!", time: "2021/01/01 23:33:33", level: .error),
+            LogModel(source: "Tunnel/JESUS_TUNNEL", data: "[XXXXXXXX] [wdn**666.JESUS_TUNNEL] 隧道启动成功", time: "2021/01/01 23:33:33", level: .info),
+            LogModel(source: "Tunnel/JESUS_TUNNEL", data: "UDP 类型隧道启动成功", time: "", level: .none),
+            LogModel(source: "Tunnel/JESUS_TUNNEL", data: "使用 [us-sj-cuvip.sakurafrp.com:2333] 来连接到你的隧道", time: "", level: .none),
+            LogModel(source: "Tunnel/JESUS_TUNNEL", data: "或使用 IP 地址连接（不推荐）：[114.51.4.19:19810]", time: "", level: .none),
+        ]
     }
 }
 #endif

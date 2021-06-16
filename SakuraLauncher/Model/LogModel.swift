@@ -14,13 +14,17 @@ enum LogLevel: String {
     case none = ""
 }
 
-class LogModel: ObservableObject, Hashable {
+class LogModel {
+    static let pattern = try! NSRegularExpression(pattern: #"(?<Time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<Level>[DIWE])\] (?:\[[a-zA-Z0-9\-_\.]+:\d+\] )?(?<Content>.+)"#)
+
+    var id = UUID()
+
     var source: String
     var time: String
     var level: LogLevel
     var data: String
 
-    internal init(source: String, time: String, level: LogLevel, data: String) {
+    init(source: String, data: String, time: String = "", level: LogLevel = .none) {
         self.source = source
         self.time = time
         self.level = level
@@ -36,19 +40,5 @@ class LogModel: ObservableObject, Hashable {
         default:
             return Color.white
         }
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(source)
-        hasher.combine(time)
-        hasher.combine(level)
-        hasher.combine(data)
-    }
-
-    static func == (lhs: LogModel, rhs: LogModel) -> Bool {
-        lhs.time == rhs.time &&
-            lhs.source == rhs.source &&
-            lhs.data == rhs.data &&
-            lhs.level == rhs.level
     }
 }

@@ -52,11 +52,11 @@ struct LogTab: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     if model.logTextWrapping {
-                        ForEach(filter == "" ? model.logs : model.logs.filter { $0.source == filter }, id: \.self) { l in
+                        ForEach(filter == "" ? model.logs : model.logs.filter { $0.source == filter }, id: \.id) { l in
                             logLine(l)
                         }
                     } else {
-                        ForEach(filter == "" ? model.logs : model.logs.filter { $0.source == filter }, id: \.self) { l in
+                        ForEach(filter == "" ? model.logs : model.logs.filter { $0.source == filter }, id: \.id) { l in
                             logLine(l).lineLimit(1)
                         }
                     }
