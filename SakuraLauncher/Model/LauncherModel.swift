@@ -8,16 +8,8 @@
 import Foundation
 
 class LauncherModel: ObservableObject {
-    // REGION: Settings
-    
-    @Published var logTextWrapping: Bool {
-        willSet { UserDefaults.standard.setValue(newValue, forKey: "logTextWrapping") }
-    }
-    
-    @Published var disableNotification: Bool {
-        willSet { UserDefaults.standard.setValue(newValue, forKey: "disableNotification") }
-    }
-    
+    let pipe = SocketClient("/tmp/")
+
 #if DEBUG
     init(preview: Bool) {
         assert(preview)
@@ -55,14 +47,103 @@ class LauncherModel: ObservableObject {
         }
     }
 
-    @Published var connected: Bool = false
-    
-    let pipe = SocketClient("/tmp/")
+    // MARK: - Daemon IPC
 
-    // REGION: User
+    func syncUser() -> Bool {
+        let resp = pipe.request(.userInfo)
+        if resp.success {
+            user = resp.dataUser
+        }
+        return resp.success
+    }
+
+    func syncAll() -> Bool {
+        if !syncLog() || !syncConfig() || !syncUpdate() {
+            return false
+        }
+        _ = syncNodes()
+        _ = syncTunnels()
+        return true
+    }
+
+    func syncLog() -> Bool {
+        let resp = pipe.request(.logGet)
+        if resp.success {
+            logs.removeAll()
+            for l in resp.dataLog.data {
+                log(l)
+            }
+        }
+        return resp.success
+    }
+
+    func syncConfig() -> Bool {
+        let resp = pipe.request(.controlConfigGet)
+        if resp.success {
+            config = resp.dataConfig
+        }
+        return resp.success
+    }
+
+    func syncUpdate() -> Bool {
+        let resp = pipe.request(.controlGetUpdate)
+        if resp.success {
+            update = resp.dataUpdate
+        }
+        return resp.success
+    }
+
+    func syncNodes() -> Bool {
+        let resp = pipe.request(.nodeList)
+        if resp.success {
+            loadNodes(resp.dataNodes.nodes)
+        }
+        return resp.success
+    }
+
+    func syncTunnels() -> Bool {
+        let resp = pipe.request(.tunnelList)
+        if resp.success {
+            loadTunnels(resp.dataTunnels.tunnels)
+        }
+        return resp.success
+    }
+
+    func onServerPush(msg: PushMessageBase) {
+        switch msg.type {
+        case .updateUser:
+            user = msg.dataUser
+        case .updateTunnel:
+            for t in tunnels {
+                if t.id == msg.dataTunnel.id {
+                    t.proto = msg.dataTunnel
+                    break
+                }
+            }
+        case .updateTunnels:
+            loadTunnels(msg.dataTunnels.tunnels)
+        case .updateNodes:
+            nodes.removeAll()
+            loadNodes(msg.dataNodes.nodes)
+        case .appendLog:
+            for l in msg.dataLog.data {
+                log(l)
+            }
+        case .pushUpdate:
+            update = msg.dataUpdate
+        case .pushConfig:
+            config = msg.dataConfig
+        default:
+            assertionFailure("收到未知 PUSH")
+        }
+    }
+
+    // MARK: - View: Generic & User
+
+    @Published var connected: Bool = false
 
     @Published var user = User()
-    
+
     func login(_ token: String, autologin: Bool = false) -> String? {
         if user.status != .noLogin {
             return user.status == .pending ? "操作进行中, 请稍候" : "用户已登录"
@@ -71,20 +152,40 @@ class LauncherModel: ObservableObject {
             return "访问密钥无效, 请检查您的输入是否正确"
         }
         user.status = .pending
-        
-        
-        
+
         return nil
     }
-    
+
+    // MARK: - View: Launcher Settings
+
+    @Published var logTextWrapping: Bool {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "logTextWrapping") }
+    }
+
+    @Published var disableNotification: Bool {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "disableNotification") }
+    }
+
     // MARK: - Tunnels & Nodes
 
     @Published var nodes: [Int32: NodeModel] = [:]
 
+    private func loadNodes(_ list: [Node]) {
+        nodes.removeAll()
+        for n in list {
+            nodes[n.id] = NodeModel(n)
+        }
+    }
+
     @Published var tunnels: [TunnelModel] = []
 
-    // REGION: Logging
-    
+    private func loadTunnels(_ list: [Tunnel]) {
+        tunnels.removeAll()
+        for t in list {
+            tunnels.append(TunnelModel(t, launcher: self))
+        }
+    }
+
     @Published var logs: [LogModel] = []
     @Published var logFilters: [String: Int] = [:]
 
@@ -146,10 +247,45 @@ class LauncherModel: ObservableObject {
             }
         }
     }
-    
-    // REGION: Tunnels
-    
-    @Published var tunnels: [TunnelModel] = []
+
+    // MARK: - Service Config & Update
+
+    @Published var config: ServiceConfig?
+
+    @Published var update: UpdateStatus?
+
+    var bypassProxy: Bool {
+        get {
+            config?.bypassProxy ?? false
+        }
+        set {
+            config?.bypassProxy = newValue
+            pushServiceConfig()
+        }
+    }
+
+    var checkUpdate: Bool {
+        get {
+            update != nil && config?.updateInterval ?? -1 != -1
+        }
+        set {
+            config?.updateInterval = newValue ? 86400 : -1
+            pushServiceConfig()
+        }
+    }
+
+    func pushServiceConfig() {
+        guard let config = config else {
+            return
+        }
+        let resp = pipe.request(RequestBase.with {
+            $0.type = .controlConfigSet
+            $0.dataConfig = config
+        })
+        if !resp.success {
+            // TODO: log
+        }
+    }
 }
 
 #if DEBUG
