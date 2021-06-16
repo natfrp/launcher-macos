@@ -20,31 +20,44 @@ struct SettingsTab: View {
 
             ScrollView {
                 VStack(alignment: .leading) {
-                    if model.user.status == .loggedIn {
+                    if model.connected && model.user.status == .loggedIn {
                         HStack {
                             Text("\(model.user.name) - \(model.user.meta)")
                                 .lineLimit(nil)
                                 .fixedSize(horizontal: false, vertical: true)
                             Button("退出", action: {
-                                model.user.status = .noLogin
+                                model.requestWithSimpleFailureAlert(.userLogout)
                             }).padding(.leading)
                         }
                     } else {
                         HStack {
                             Text("登录账户:")
-                            TextField("访问密钥", text: model.user.status == .noLogin ? $token : .constant("****************"))
+                            TextField("访问密钥", text: !model.connected || model.user.status == .noLogin ? $token : .constant("****************"))
                                 .frame(width: 200)
-                            Button("登录", action: {
-                                if let err = model.login(token) {
-                                    // TODO: show error
+                            Button(model.user.status == .pending ? "登录中..." : "登录", action: {
+                                DispatchQueue.global(qos: .userInitiated).async { [self] in
+                                    let resp = model.pipe.request(RequestBase.with {
+                                        $0.type = .userLogin
+                                        $0.dataUserLogin = UserLogin.with {
+                                            $0.token = token
+                                        }
+                                    })
+                                    if !resp.success {
+                                        model.showAlert(resp.message, title: "登录失败")
+                                    }
+                                    _ = model.syncAll()
                                 }
                             })
                         }
-                        .disabled(model.user.status == .pending)
+                        .disabled(!model.connected || model.user.status == .pending)
                     }
                     Divider()
                     Toggle("日志自动换行", isOn: $model.logTextWrapping)
                     Toggle("关闭状态通知", isOn: $model.disableNotification)
+                    Toggle("绕过系统代理", isOn: $model.bypassProxy)
+                        .disabled(!model.connected)
+                    Toggle("自动检查更新", isOn: $model.checkUpdate)
+                        .disabled(!model.connected)
                 }
             }
             .padding(.leading)
