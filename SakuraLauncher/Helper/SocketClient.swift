@@ -44,8 +44,8 @@ class SocketClient {
             mainConnection = try! Socket.create(family: .unix, type: .stream, proto: .unix)
             pushConnection = try! Socket.create(family: .unix, type: .stream, proto: .unix)
 
-            try mainConnection.connect(to: path + "service.sock")
-            try pushConnection.connect(to: path + "service-push.sock")
+            try mainConnection.connect(to: path + "/rest")
+            try pushConnection.connect(to: path + "/push")
 
             queue.async { [self] in
                 do {

@@ -8,7 +8,7 @@
 import Foundation
 
 class LauncherModel: ObservableObject {
-    let pipe = SocketClient("/tmp/")
+    let pipe = SocketClient(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "moe.berd.SakuraL")!.path + "/Library/Caches")
 
 #if DEBUG
     init(preview: Bool) {
