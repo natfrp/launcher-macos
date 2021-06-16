@@ -17,13 +17,16 @@ struct ContentView: View {
             sidebar
             content.transition(.opacity.animation(.default.speed(2.5)))
         }
+        .alert(isPresented: $model.showAlert, content: {
+            Alert(title: Text(model.alertTitle), message: Text(model.alertText))
+        })
     }
 
     var sidebar: some View {
         List {
             LogoView()
             TabItemView(title: "隧道", iconImage: "server.rack", target: .tunnel, current: $currentTab)
-                .disabled(model.user.status != .loggedIn)
+                .disabled(!model.connected || model.user.status != .loggedIn)
             TabItemView(title: "日志", iconImage: "doc.text", target: .log, current: $currentTab)
             TabItemView(title: "设置", iconImage: "gearshape", target: .settings, current: $currentTab)
             TabItemView(title: "关于", iconImage: "info.circle", target: .about, current: $currentTab)

@@ -24,6 +24,8 @@ struct LogTab: View {
                     .font(.title)
                     .padding(.leading, 24)
                 Button(action: {
+                    _ = model.pipe.request(.logClear)
+
                     model.logs = []
                     model.logFilters = [:]
 

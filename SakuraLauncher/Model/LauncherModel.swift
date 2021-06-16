@@ -30,6 +30,16 @@ class LauncherModel: ObservableObject {
 
         pipe.onPushMessage = onServerPush
 
+        // This looks silly, but prevents the alert from showing multiple times (a bug)
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] _ in
+            if let alert = queuedAlert {
+                queuedAlert = nil
+                alertText = alert.0
+                alertTitle = alert.1
+                showAlert = true
+            }
+        }
+
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [self] _ in
             if pipe.connected {
                 return
@@ -68,10 +78,14 @@ class LauncherModel: ObservableObject {
 
     func syncLog() -> Bool {
         let resp = pipe.request(.logGet)
-        if resp.success {
-            logs.removeAll()
-            for l in resp.dataLog.data {
-                log(l)
+        DispatchQueue.main.async { [self] in
+            if resp.success {
+                logs.removeAll()
+                for l in resp.dataLog.data {
+                    log(l)
+                }
+            } else {
+                showAlert(resp.message, title: "日志同步失败")
             }
         }
         return resp.success
@@ -79,16 +93,24 @@ class LauncherModel: ObservableObject {
 
     func syncConfig() -> Bool {
         let resp = pipe.request(.controlConfigGet)
-        if resp.success {
-            config = resp.dataConfig
+        DispatchQueue.main.async { [self] in
+            if resp.success {
+                config = resp.dataConfig
+            } else {
+                showAlert(resp.message, title: "守护进程配置同步失败")
+            }
         }
         return resp.success
     }
 
     func syncUpdate() -> Bool {
         let resp = pipe.request(.controlGetUpdate)
-        if resp.success {
-            update = resp.dataUpdate
+        DispatchQueue.main.async { [self] in
+            if resp.success {
+                update = resp.dataUpdate
+            } else {
+                showAlert(resp.message, title: "更新状态同步失败")
+            }
         }
         return resp.success
     }
@@ -96,7 +118,9 @@ class LauncherModel: ObservableObject {
     func syncNodes() -> Bool {
         let resp = pipe.request(.nodeList)
         if resp.success {
-            loadNodes(resp.dataNodes.nodes)
+            DispatchQueue.main.async {
+                self.loadNodes(resp.dataNodes.nodes)
+            }
         }
         return resp.success
     }
@@ -104,7 +128,9 @@ class LauncherModel: ObservableObject {
     func syncTunnels() -> Bool {
         let resp = pipe.request(.tunnelList)
         if resp.success {
-            loadTunnels(resp.dataTunnels.tunnels)
+            DispatchQueue.main.async {
+                self.loadTunnels(resp.dataTunnels.tunnels)
+            }
         }
         return resp.success
     }
@@ -138,23 +164,38 @@ class LauncherModel: ObservableObject {
         }
     }
 
+    func requestWithSimpleFailureAlert(_ msg: MessageID) {
+        requestWithSimpleFailureAlert(RequestBase.with {
+            $0.type = msg
+        })
+    }
+
+    func requestWithSimpleFailureAlert(_ msg: RequestBase) {
+        DispatchQueue.global(qos: .userInteractive).async { [self] in
+            let resp = pipe.request(msg)
+            if !resp.success {
+                showAlert(resp.message, title: "错误")
+            }
+        }
+    }
+
     // MARK: - View: Generic & User
+
+    var queuedAlert: (String, String)?
+
+    @Published var showAlert: Bool = false
+    @Published var alertText: String = ""
+    @Published var alertTitle: String = ""
+
+    func showAlert(_ text: String, title: String = "提示") {
+        DispatchQueue.main.async {
+            self.queuedAlert = (text, title)
+        }
+    }
 
     @Published var connected: Bool = false
 
     @Published var user = User()
-
-    func login(_ token: String, autologin: Bool = false) -> String? {
-        if user.status != .noLogin {
-            return user.status == .pending ? "操作进行中, 请稍候" : "用户已登录"
-        }
-        if token.count < 16 {
-            return "访问密钥无效, 请检查您的输入是否正确"
-        }
-        user.status = .pending
-
-        return nil
-    }
 
     // MARK: - View: Launcher Settings
 
@@ -185,6 +226,8 @@ class LauncherModel: ObservableObject {
             tunnels.append(TunnelModel(t, launcher: self))
         }
     }
+
+    // MARK: - Logging
 
     @Published var logs: [LogModel] = []
     @Published var logFilters: [String: Int] = [:]
@@ -225,6 +268,7 @@ class LauncherModel: ObservableObject {
                 if !disableNotification {
                     // TODO: Notification
                 }
+                return
             case 1:
                 fallthrough
             default:
