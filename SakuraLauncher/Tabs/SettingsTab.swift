@@ -54,11 +54,11 @@ struct SettingsTab: View {
 }
 
 #if DEBUG
-    struct SettingsTab_Previews: PreviewProvider {
-        static var previews: some View {
-            SettingsTab()
-                .previewLayout(.fixed(width: 602, height: 500))
-                .environmentObject(LauncherModel(preview: true))
-        }
+struct SettingsTab_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsTab()
+            .previewLayout(.fixed(width: 602, height: 500))
+            .environmentObject(LauncherModel_Preview() as LauncherModel)
     }
+}
 #endif

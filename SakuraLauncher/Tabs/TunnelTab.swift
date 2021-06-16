@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TunnelTab: View {
-    @Binding var tunnels: [TunnelModel]
+    @EnvironmentObject var model: LauncherModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("隧道")
                 .font(.title)
                 .padding(.leading, 24)
-            if tunnels.count == 0 {
+            if model.tunnels.count == 0 {
                 Text("还没有隧道哦")
                     .font(.title2)
                     .foregroundColor(.primary.opacity(0.8))
@@ -24,7 +24,7 @@ struct TunnelTab: View {
                 GeometryReader { geometry in
                     ScrollView {
                         LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: 260), spacing: 20), count: Int(geometry.size.width / 260)), alignment: .leading, spacing: 20) {
-                            ForEach(tunnels, id: \.id) { t in
+                            ForEach(model.tunnels, id: \.id) { t in
                                 TunnelItemView(tunnel: t)
                             }
                         }
@@ -37,17 +37,10 @@ struct TunnelTab: View {
 }
 
 #if DEBUG
-    struct TunnelTab_Previews: PreviewProvider {
-        static var previews: some View {
-            TunnelTab(tunnels: .constant({
-                let t = [
-                    TunnelModel(id: 0, name: "SampleTunnel 1", node: "#1 PA47 Node", type: "TCP", description: "2333 -> 127.0.0.1:2333"),
-                    TunnelModel(id: 1, name: "SampleTunnel 2", node: "#1 PA47 Node", type: "UDP", description: "2333 -> 127.0.0.1:2333"),
-                    TunnelModel(id: 2, name: "SampleTunnel 3", node: "#1 PA47 Node", type: "HTTP", description: "example.ltd"),
-                ]
-                t[2].enabled = true
-                return t
-            }()))
-        }
+struct TunnelTab_Previews: PreviewProvider {
+    static var previews: some View {
+        TunnelTab()
+            .environmentObject(LauncherModel_Preview() as LauncherModel)
     }
+}
 #endif

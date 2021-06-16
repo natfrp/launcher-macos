@@ -44,9 +44,9 @@ struct AboutTab: View {
 }
 
 #if DEBUG
-    struct AboutTab_Previews: PreviewProvider {
-        static var previews: some View {
-            AboutTab()
-        }
+struct AboutTab_Previews: PreviewProvider {
+    static var previews: some View {
+        AboutTab()
     }
+}
 #endif

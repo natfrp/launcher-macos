@@ -8,21 +8,35 @@
 import Foundation
 
 class TunnelModel: ObservableObject {
-    var id: Int
-    var name: String
-    var node: String
-    var type: String
-    var description: String
+    private let model: LauncherModel
 
-    @Published var enabled: Bool = false
+    @Published var proto: Tunnel
 
-    init(id: Int = -1, name: String = "", node: String = "", type: String = "", description: String = "") {
-        self.id = id
-        self.name = name
-        self.node = node
-        self.type = type
-        self.description = description
+    var id: Int32 { proto.id }
+    var name: String { proto.name }
+    var node: Int32 { proto.node }
+    var type: String { proto.type }
+    var description: String { proto.description_p }
+
+    var nodeName: String { model.nodes[node]?.name ?? "未知节点" }
+
+    var enabled: Bool {
+        get {
+            proto.status != .disabled
+        }
+        set {
+            _ = model.pipe.request(RequestBase.with {
+                $0.type = .tunnelUpdate
+                $0.dataUpdateTunnel = UpdateTunnelStatus.with {
+                    $0.id = id
+                    $0.status = newValue ? 1 : 0
+                }
+            })
+        }
     }
 
-    // TODO:
+    init(_ proto: Tunnel, launcher: LauncherModel) {
+        self.proto = proto
+        model = launcher
+    }
 }

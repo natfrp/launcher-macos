@@ -25,7 +25,6 @@ struct ContentView: View {
             TabItemView(title: "隧道", iconImage: "server.rack", target: .tunnel, current: $currentTab)
                 .disabled(model.user.status != .loggedIn)
             TabItemView(title: "日志", iconImage: "doc.text", target: .log, current: $currentTab)
-                .disabled(model.user.status != .loggedIn)
             TabItemView(title: "设置", iconImage: "gearshape", target: .settings, current: $currentTab)
             TabItemView(title: "关于", iconImage: "info.circle", target: .about, current: $currentTab)
         }
@@ -38,7 +37,7 @@ struct ContentView: View {
         VStack(spacing: 0) {
             switch currentTab {
             case .tunnel:
-                TunnelTab(tunnels: $model.tunnels)
+                TunnelTab()
             case .log:
                 LogTab()
             case .settings:
@@ -58,11 +57,11 @@ struct ContentView: View {
 }
 
 #if DEBUG
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-                .previewLayout(.fixed(width: 782, height: 500))
-                .environmentObject(LauncherModel(preview: true))
-        }
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .previewLayout(.fixed(width: 782, height: 500))
+            .environmentObject(LauncherModel_Preview() as LauncherModel)
     }
+}
 #endif

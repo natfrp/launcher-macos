@@ -21,7 +21,7 @@ struct TunnelItemView: View {
                     .labelsHidden()
             }
             Spacer()
-            Text(tunnel.node)
+            Text("#\(tunnel.node) \(tunnel.nodeName)")
                 .font(.system(size: 14))
                 .padding(.bottom, 4)
             HStack(spacing: 0) {
@@ -40,9 +40,11 @@ struct TunnelItemView: View {
 }
 
 #if DEBUG
-    struct TunnelItemView_Previews: PreviewProvider {
-        static var previews: some View {
-            TunnelItemView(tunnel: TunnelModel(id: 0, name: "SampleTunnel", node: "#1 PA47 Node", type: "TCP", description: "2333 -> 127.0.0.1:2333"))
-        }
+struct TunnelItemView_Previews: PreviewProvider {
+    static var model = LauncherModel_Preview()
+
+    static var previews: some View {
+        TunnelItemView(tunnel: model.tunnels[0])
     }
+}
 #endif
