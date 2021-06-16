@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TunnelItemView: View {
-    @State var tunnel: TunnelModel
+    @ObservedObject var tunnel: TunnelModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -17,8 +17,9 @@ struct TunnelItemView: View {
                     .font(.title)
                 Spacer()
                 Toggle(isOn: $tunnel.enabled) {}
-                    .toggleStyle(SwitchToggleStyle(tint: .red))
+                    .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     .labelsHidden()
+                    .disabled(tunnel.proto.status == .pending)
             }
             Spacer()
             Text("#\(tunnel.node) \(tunnel.nodeName)")

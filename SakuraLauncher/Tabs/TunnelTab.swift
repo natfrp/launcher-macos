@@ -28,7 +28,10 @@ struct TunnelTab: View {
                                 TunnelItemView(tunnel: t)
                             }
                         }
-                        .padding()
+                        .padding(.top)
+                        .padding(.bottom, 24)
+                        .padding(.leading, 24)
+                        .padding(.trailing, 24)
                     }
                 }
             }
