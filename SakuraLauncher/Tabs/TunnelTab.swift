@@ -12,9 +12,30 @@ struct TunnelTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("隧道")
-                .font(.title)
-                .padding(.leading, 24)
+            HStack {
+                Text("隧道")
+                    .font(.title)
+                    .padding(.leading, 24)
+
+                Button(action: {
+                    // TODO: Create tunnel window
+                }) {
+                    Image(systemName: "plus")
+                }
+                .buttonStyle(PlainButtonStyle())
+                .font(.system(size: 16))
+                .padding(.leading, 8)
+
+                Button(action: {
+                    model.tunnels.removeAll()
+                    model.requestWithSimpleFailureAlert(.tunnelReload)
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }
+                .buttonStyle(PlainButtonStyle())
+                .font(.system(size: 16))
+                .padding(.leading, 8)
+            }
             if model.tunnels.count == 0 {
                 Text("还没有隧道哦")
                     .font(.title2)
