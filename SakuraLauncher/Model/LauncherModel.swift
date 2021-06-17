@@ -9,6 +9,7 @@ import Foundation
 
 class LauncherModel: ObservableObject {
     let pipe = SocketClient(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "moe.berd.SakuraL")!.path + "/Library/Caches")
+    var daemon: DaemonHost?
 
 #if DEBUG
     init(preview: Bool) {
@@ -28,6 +29,7 @@ class LauncherModel: ObservableObject {
 
         logDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
 
+        daemon = DaemonHost(self)
         pipe.onPushMessage = onServerPush
 
         // This looks silly, but prevents the alert from showing multiple times (a bug)
