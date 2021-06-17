@@ -66,8 +66,8 @@ struct LogTab: View {
                 .font(.custom("monaco", size: 12))
                 .padding(8)
             }
-            .background((colorScheme == .dark ? Color.black : Color.white).opacity(0.2))
-            .border(Color.secondary.opacity(0.8), width: 2)
+            .background(Color.black.opacity(colorScheme == .dark ? 0.2 : 0.8))
+            .border(colorScheme == .dark ? Color.secondary.opacity(0.8) : Color.gray, width: 2)
             .padding()
         }
     }

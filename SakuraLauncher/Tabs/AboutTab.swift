@@ -38,7 +38,10 @@ struct AboutTab: View {
             }
             .background((colorScheme == .dark ? Color.black : Color.white).opacity(0.2))
             .border(Color.secondary.opacity(0.8), width: 2)
-            .padding(16)
+            .padding(.top, 8)
+            .padding(.bottom, 24)
+            .padding(.leading, 24)
+            .padding(.trailing, 24)
         }
     }
 }

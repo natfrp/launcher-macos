@@ -55,14 +55,19 @@ struct SettingsTab: View {
                     }
                     Divider()
                     Toggle("日志自动换行", isOn: $model.logTextWrapping)
+                        .toggleStyle(SwitchToggleStyle())
                     Toggle("关闭状态通知", isOn: $model.disableNotification)
+                        .toggleStyle(SwitchToggleStyle())
                     Toggle("绕过系统代理", isOn: $model.bypassProxy)
+                        .toggleStyle(SwitchToggleStyle())
                         .disabled(!model.connected)
                     Toggle("自动检查更新", isOn: $model.checkUpdate)
+                        .toggleStyle(SwitchToggleStyle())
                         .disabled(!model.connected)
                     Divider()
                     HStack {
                         Toggle("启用远程管理", isOn: $model.enableRemoteManagement)
+                            .toggleStyle(SwitchToggleStyle())
                             .disabled(!model.connected || !(model.config?.remoteKeySet ?? false))
                         Button("设置密码") {
                             withAnimation(.linear(duration: 0.2)) {
@@ -72,10 +77,21 @@ struct SettingsTab: View {
                             }
                         }
                     }
+                    Divider()
+                    HStack {
+                        // TODO: Move to status menu
+                        Button("退出启动器") {
+                            NSApplication.shared.terminate(self)
+                        }
+                        Button("彻底退出启动器和服务") {
+                            model.daemon?.stopDaemon()
+                            NSApplication.shared.terminate(self)
+                        }
+                    }
                 }
             }
-            .padding(.leading)
-            .padding(.trailing)
+            .padding(.leading, 24)
+            .padding(.trailing, 24)
         }
     }
 }
