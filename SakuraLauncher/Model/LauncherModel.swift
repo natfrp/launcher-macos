@@ -324,13 +324,10 @@ class LauncherModel: ObservableObject {
         guard let config = config else {
             return
         }
-        let resp = pipe.request(RequestBase.with {
+        requestWithSimpleFailureAlert(RequestBase.with {
             $0.type = .controlConfigSet
             $0.dataConfig = config
         })
-        if !resp.success {
-            // TODO: log
-        }
     }
 }
 

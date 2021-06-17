@@ -72,19 +72,21 @@ class SocketClient {
     }
 
     func request(_ message: RequestBase) -> ResponseBase {
-        do {
-            let data = try message.serializedData()
-            var count = UInt32(data.count)
+        DispatchQueue.global(qos: .userInitiated).sync {
+            do {
+                let data = try message.serializedData()
+                var count = UInt32(data.count)
 
-            try mainConnection.write(from: Data(bytes: &count, count: 4))
-            try mainConnection.write(from: data)
+                try mainConnection.write(from: Data(bytes: &count, count: 4))
+                try mainConnection.write(from: data)
 
-            return try readMessage(mainConnection, type: ResponseBase.self)
-        } catch let e {
-            close()
-            return ResponseBase.with {
-                $0.success = false
-                $0.message = "内部错误: \(e)"
+                return try readMessage(mainConnection, type: ResponseBase.self)
+            } catch let e {
+                close()
+                return ResponseBase.with {
+                    $0.success = false
+                    $0.message = "内部错误: \(e)"
+                }
             }
         }
     }
