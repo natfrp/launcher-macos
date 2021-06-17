@@ -320,6 +320,16 @@ class LauncherModel: ObservableObject {
         }
     }
 
+    var enableRemoteManagement: Bool {
+        get {
+            (config?.remoteManagement ?? false) && (config?.remoteKeySet ?? false)
+        }
+        set {
+            config?.remoteManagement = newValue
+            pushServiceConfig()
+        }
+    }
+
     func pushServiceConfig() {
         guard let config = config else {
             return

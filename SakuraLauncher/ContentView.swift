@@ -11,15 +11,22 @@ struct ContentView: View {
     @EnvironmentObject var model: LauncherModel
 
     @State var currentTab = TabItemView.Tabs.settings
+    @State var currentPopup: AnyView?
 
     var body: some View {
-        HStack(spacing: 0) {
-            sidebar
-            content.transition(.opacity.animation(.default.speed(2.5)))
+        ZStack {
+            HStack(spacing: 0) {
+                sidebar
+                content.transition(.opacity.animation(.default.speed(2.5)))
+            }
+            .alert(isPresented: $model.showAlert, content: {
+                Alert(title: Text(model.alertTitle), message: Text(model.alertText))
+            })
+            if let popup = currentPopup {
+                Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
+                popup
+            }
         }
-        .alert(isPresented: $model.showAlert, content: {
-            Alert(title: Text(model.alertTitle), message: Text(model.alertText))
-        })
     }
 
     var sidebar: some View {
@@ -44,7 +51,7 @@ struct ContentView: View {
             case .log:
                 LogTab()
             case .settings:
-                SettingsTab()
+                SettingsTab(currentPopup: $currentPopup)
             case .about:
                 AboutTab()
             }

@@ -12,6 +12,8 @@ struct SettingsTab: View {
 
     @State var token = ""
 
+    @Binding var currentPopup: AnyView?
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("设置")
@@ -19,7 +21,7 @@ struct SettingsTab: View {
                 .padding(.leading, 24)
 
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 16) {
                     if model.connected && model.user.status == .loggedIn {
                         HStack {
                             Text("\(model.user.name) - \(model.user.meta)")
@@ -58,6 +60,18 @@ struct SettingsTab: View {
                         .disabled(!model.connected)
                     Toggle("自动检查更新", isOn: $model.checkUpdate)
                         .disabled(!model.connected)
+                    Divider()
+                    HStack {
+                        Toggle("启用远程管理", isOn: $model.enableRemoteManagement)
+                            .disabled(!model.connected || !(model.config?.remoteKeySet ?? false))
+                        Button("设置密码") {
+                            withAnimation(.linear(duration: 0.2)) {
+                                currentPopup = AnyView(RemoteConfigPopup(close: {
+                                    currentPopup = nil
+                                }))
+                            }
+                        }
+                    }
                 }
             }
             .padding(.leading)
@@ -69,7 +83,7 @@ struct SettingsTab: View {
 #if DEBUG
 struct SettingsTab_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTab()
+        SettingsTab(currentPopup: .constant(nil))
             .previewLayout(.fixed(width: 602, height: 500))
             .environmentObject(LauncherModel_Preview() as LauncherModel)
     }
