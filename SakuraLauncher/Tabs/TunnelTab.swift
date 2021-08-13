@@ -46,7 +46,14 @@ struct TunnelTab: View {
                     ScrollView {
                         LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: 260), spacing: 20), count: Int(geometry.size.width / 260)), alignment: .leading, spacing: 20) {
                             ForEach(model.tunnels, id: \.id) { t in
-                                TunnelItemView(tunnel: t)
+                                TunnelItemView(tunnel: t).contextMenu {
+                                    Button("删除隧道") {
+                                        model.alertContent = Alert(title: Text("操作确认"), message: Text("是否确认删除隧道 #\(String(t.id)) \(t.name)?"), primaryButton: .destructive(Text("确认删除"), action: {
+                                            model.deleteTunnel(t.id)
+                                        }), secondaryButton: .cancel())
+                                        model.showAlert = true
+                                    }
+                                }
                             }
                         }
                         .padding(.top)

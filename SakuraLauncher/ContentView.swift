@@ -20,7 +20,7 @@ struct ContentView: View {
                 content.transition(.opacity.animation(.default.speed(2.5)))
             }
             .alert(isPresented: $model.showAlert, content: {
-                Alert(title: Text(model.alertTitle), message: Text(model.alertText))
+                model.alertContent ?? Alert(title: Text("出现了奇怪的错误"))
             })
             if let popup = currentPopup {
                 Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)

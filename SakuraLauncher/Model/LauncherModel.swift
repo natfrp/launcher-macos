@@ -5,7 +5,7 @@
 //  Created by FENGberd on 6/11/21.
 //
 
-import Foundation
+import SwiftUI
 
 class LauncherModel: ObservableObject {
     let pipe = SocketClient(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "moe.berd.SakuraL")!.path + "/Library/Caches")
@@ -36,8 +36,7 @@ class LauncherModel: ObservableObject {
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] _ in
             if let alert = queuedAlert {
                 queuedAlert = nil
-                alertText = alert.0
-                alertTitle = alert.1
+                alertContent = Alert(title: Text(alert.1), message: Text(alert.0))
                 showAlert = true
             }
         }
@@ -166,17 +165,19 @@ class LauncherModel: ObservableObject {
         }
     }
 
-    func requestWithSimpleFailureAlert(_ msg: MessageID) {
+    func requestWithSimpleFailureAlert(_ msg: MessageID, _ success: (() -> Void)? = nil) {
         requestWithSimpleFailureAlert(RequestBase.with {
             $0.type = msg
-        })
+        }, success)
     }
 
-    func requestWithSimpleFailureAlert(_ msg: RequestBase) {
+    func requestWithSimpleFailureAlert(_ msg: RequestBase, _ success: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInteractive).async { [self] in
             let resp = pipe.request(msg)
             if !resp.success {
                 showAlert(resp.message, title: "错误")
+            } else if let s = success {
+                DispatchQueue.main.sync(execute: s)
             }
         }
     }
@@ -186,8 +187,7 @@ class LauncherModel: ObservableObject {
     var queuedAlert: (String, String)?
 
     @Published var showAlert: Bool = false
-    @Published var alertText: String = ""
-    @Published var alertTitle: String = ""
+    @Published var alertContent: Alert?
 
     func showAlert(_ text: String, title: String = "提示") {
         DispatchQueue.main.async {
@@ -227,6 +227,13 @@ class LauncherModel: ObservableObject {
         for t in list {
             tunnels.append(TunnelModel(t, launcher: self))
         }
+    }
+
+    func deleteTunnel(_ id: Int32) {
+        requestWithSimpleFailureAlert(RequestBase.with {
+            $0.type = .tunnelDelete
+            $0.dataID = id
+        })
     }
 
     // MARK: - Logging
