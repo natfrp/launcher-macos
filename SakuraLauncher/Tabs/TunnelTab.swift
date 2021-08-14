@@ -18,7 +18,7 @@ struct TunnelTab: View {
                     .padding(.leading, 24)
 
                 Button(action: {
-                    // TODO: Create tunnel window
+                    model.showPopup(AnyView(CreateTunnelPopup()))
                 }) {
                     Image(systemName: "plus")
                 }
