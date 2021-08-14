@@ -27,6 +27,8 @@ struct RemoteConfigPopup: View {
                 Button("取消") {
                     withAnimation(.linear(duration: 0.1), close)
                 }
+                .keyboardShortcut(.cancelAction)
+
                 Button("更新") {
                     if password == "" {
                         return
@@ -35,14 +37,12 @@ struct RemoteConfigPopup: View {
                     model.pushServiceConfig()
                     withAnimation(.linear(duration: 0.1), close)
                 }
-                .background(Color.blue)
-                .foregroundColor(.white)
+                .keyboardShortcut(.defaultAction)
             }
         }
         .padding()
         .frame(maxWidth: 440)
-        .border(Color.white, width: 1)
-        .background(Color.background)
+        .background(RoundedRectangle(cornerRadius: 6).fill(Color.background))
     }
 }
 
