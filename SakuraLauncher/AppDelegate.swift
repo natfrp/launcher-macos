@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var isPreview = true
@@ -13,10 +14,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var mainWindow: NSWindow?
     var statusBarItem: NSStatusItem?
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    func applicationDidFinishLaunching(_: Notification) {
         if isPreview {
             return
         }
+
+        UNUserNotificationCenter.current().delegate = self
 
         mainWindow = NSApplication.shared.windows[0]
         if let window = mainWindow {
@@ -25,7 +28,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             window.standardWindowButton(.zoomButton)!.isHidden = true
         }
 
-        // TODO: call NSApp.hide(nil) when started automatically
         showWindow()
 
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -42,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NSApplication.shared.activate(ignoringOtherApps: true)
     }
 
-    @objc func statusBarAction(_ sender: AnyObject?) {
+    @objc func statusBarAction(_: AnyObject?) {
         showWindow()
     }
 
@@ -51,5 +53,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         sender.orderOut(self)
         return false
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
     }
 }

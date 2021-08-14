@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 class LauncherModel: ObservableObject {
     let pipe = SocketClient(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "moe.berd.SakuraL")!.path + "/Library/Caches")
@@ -15,17 +16,17 @@ class LauncherModel: ObservableObject {
     init(preview: Bool) {
         assert(preview)
         logTextWrapping = true
-        disableNotification = false
+        enableStatusNotification = false
     }
 #endif
 
     init() {
         UserDefaults.standard.register(defaults: [
             "logTextWrapping": true,
-            "disableNotification": false,
+            "enableStatusNotification": false,
         ])
         logTextWrapping = UserDefaults.standard.bool(forKey: "logTextWrapping")
-        disableNotification = UserDefaults.standard.bool(forKey: "disableNotification")
+        enableStatusNotification = UserDefaults.standard.bool(forKey: "enableStatusNotification")
 
         logDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
 
@@ -224,8 +225,20 @@ class LauncherModel: ObservableObject {
         willSet { UserDefaults.standard.setValue(newValue, forKey: "logTextWrapping") }
     }
 
-    @Published var disableNotification: Bool {
-        willSet { UserDefaults.standard.setValue(newValue, forKey: "disableNotification") }
+    @Published var enableStatusNotification: Bool {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "enableStatusNotification") }
+        didSet {
+            if !enableStatusNotification {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
+                    if !success {
+                        DispatchQueue.main.async {
+                            self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", title: "通知权限被禁用")
+                            self.enableStatusNotification = true
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Tunnels & Nodes
@@ -293,8 +306,13 @@ class LauncherModel: ObservableObject {
             case 5: // Notice WARNING
                 fallthrough
             case 6: // Notice ERROR
-                if !disableNotification {
-                    // TODO: Notification
+                if enableStatusNotification {
+                    let content = UNMutableNotificationContent()
+                    content.title = entry.source
+                    content.subtitle = entry.data
+                    content.sound = UNNotificationSound.default
+
+                    UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "StatusNotification", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)))
                 }
                 return
             case 1:

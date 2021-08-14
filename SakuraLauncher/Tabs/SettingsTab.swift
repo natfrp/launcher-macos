@@ -54,7 +54,7 @@ struct SettingsTab: View {
                     Divider()
                     Toggle("日志自动换行", isOn: $model.logTextWrapping)
                         .toggleStyle(SwitchToggleStyle())
-                    Toggle("关闭状态通知", isOn: $model.disableNotification)
+                    Toggle("隧道状态通知", isOn: $model.enableStatusNotification)
                         .toggleStyle(SwitchToggleStyle())
                     Toggle("绕过系统代理", isOn: $model.bypassProxy)
                         .toggleStyle(SwitchToggleStyle())
