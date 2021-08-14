@@ -194,10 +194,23 @@ class LauncherModel: ObservableObject {
 
     @Published var showAlert: Bool = false
     @Published var alertContent: Alert?
+    @Published var popupContent: AnyView?
 
     func showAlert(_ text: String, title: String = "提示") {
         DispatchQueue.main.async {
             self.queuedAlert = (text, title)
+        }
+    }
+
+    func showPopup(_ popup: AnyView) {
+        withAnimation(.linear(duration: 0.1)) {
+            popupContent = popup
+        }
+    }
+
+    func closePopup() {
+        withAnimation(.linear(duration: 0.1)) {
+            popupContent = nil
         }
     }
 

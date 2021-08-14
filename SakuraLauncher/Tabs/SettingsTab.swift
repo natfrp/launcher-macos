@@ -12,8 +12,6 @@ struct SettingsTab: View {
 
     @State var token = ""
 
-    @Binding var currentPopup: AnyView?
-
     var body: some View {
         VStack(alignment: .leading) {
             Text("设置")
@@ -77,11 +75,7 @@ struct SettingsTab: View {
                             .toggleStyle(SwitchToggleStyle())
                             .disabled(!model.connected || !(model.config?.remoteKeySet ?? false))
                         Button("设置密码") {
-                            withAnimation(.linear(duration: 0.2)) {
-                                currentPopup = AnyView(RemoteConfigPopup(close: {
-                                    currentPopup = nil
-                                }))
-                            }
+                            model.showPopup(AnyView(RemoteConfigPopup()))
                         }
                     }
                     Divider()
@@ -106,7 +100,7 @@ struct SettingsTab: View {
 #if DEBUG
 struct SettingsTab_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTab(currentPopup: .constant(nil))
+        SettingsTab()
             .previewLayout(.fixed(width: 602, height: 500))
             .environmentObject(LauncherModel_Preview() as LauncherModel)
     }

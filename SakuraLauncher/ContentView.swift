@@ -11,7 +11,6 @@ struct ContentView: View {
     @EnvironmentObject var model: LauncherModel
 
     @State var currentTab = TabItemView.Tabs.settings
-    @State var currentPopup: AnyView?
 
     var body: some View {
         ZStack {
@@ -22,9 +21,11 @@ struct ContentView: View {
             .alert(isPresented: $model.showAlert, content: {
                 model.alertContent ?? Alert(title: Text("出现了奇怪的错误"))
             })
-            if let popup = currentPopup {
+            if let popup = model.popupContent {
                 Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
                 popup
+                    .background(RoundedRectangle(cornerRadius: 6).fill(Color.background))
+                    .shadow(radius: 16)
             }
         }
     }
@@ -51,7 +52,7 @@ struct ContentView: View {
             case .log:
                 LogTab()
             case .settings:
-                SettingsTab(currentPopup: $currentPopup)
+                SettingsTab()
             case .about:
                 AboutTab()
             }
