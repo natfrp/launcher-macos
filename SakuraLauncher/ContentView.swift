@@ -61,7 +61,48 @@ struct ContentView: View {
                     .padding(4)
                     .frame(maxWidth: .infinity)
                     .background(Color.orange)
+            } else {
+                updateBar
             }
+        }
+    }
+
+    @ViewBuilder
+    var updateBar: some View {
+        if let u = model.update, u.updateAvailable {
+            Button(action: {
+                NSWorkspace.shared.open(URL(string: u.updateReadyDir)!)
+            }) {
+                Text("发现新版本，点此下载新版安装包")
+                    .font(.system(size: 18))
+                    .padding(4)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 0, green: 0.5, blue: 0.5))
+            }.buttonStyle(PlainButtonStyle())
+            /* Can't open the pkg installer programmatically due to sandboxing.
+             if u.updateReadyDir != "" {
+                 Button(action: {
+                     // Ugly workaround
+                     // NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")])
+                     if NSWorkspace.shared.open(URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")) {
+                         model.daemon?.stopDaemon()
+                         NSApplication.shared.terminate(self)
+                     }
+                 }) {
+                     Text("更新准备完成, 点此进行更新")
+                         .font(.system(size: 18))
+                         .padding(4)
+                         .frame(maxWidth: .infinity)
+                         .background(Color(red: 0, green: 0.5, blue: 0.5))
+                 }.buttonStyle(PlainButtonStyle())
+             } else {
+                 Text("下载更新中... \(Double(u.downloadCurrent) / 1_048_576, specifier: "%.2f")MiB/\(Double(u.downloadTotal) / 1_048_576, specifier: "%.2f")MiB")
+                     .font(.system(size: 18))
+                     .padding(4)
+                     .frame(maxWidth: .infinity)
+                     .background(Color(red: 0, green: 0.5, blue: 0.5))
+             }
+             */
         }
     }
 }

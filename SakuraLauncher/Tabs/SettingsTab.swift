@@ -61,9 +61,16 @@ struct SettingsTab: View {
                     Toggle("绕过系统代理", isOn: $model.bypassProxy)
                         .toggleStyle(SwitchToggleStyle())
                         .disabled(!model.connected)
-                    Toggle("自动检查更新", isOn: $model.checkUpdate)
-                        .toggleStyle(SwitchToggleStyle())
-                        .disabled(!model.connected)
+                    HStack {
+                        Toggle("自动检查更新", isOn: $model.checkUpdate)
+                            .toggleStyle(SwitchToggleStyle())
+                            .disabled(!model.connected)
+                        Button("立即检查") {
+                            model.checkingUpdate = true
+                            model.requestWithSimpleFailureAlert(.controlCheckUpdate)
+                        }
+                        .disabled(!model.connected || !model.checkUpdate || model.checkingUpdate)
+                    }
                     Divider()
                     HStack {
                         Toggle("启用远程管理", isOn: $model.enableRemoteManagement)

@@ -158,6 +158,12 @@ class LauncherModel: ObservableObject {
             }
         case .pushUpdate:
             update = msg.dataUpdate
+            if checkingUpdate {
+                checkingUpdate = false
+                if !update!.updateAvailable {
+                    showAlert("您当前使用的启动器为最新版本")
+                }
+            }
         case .pushConfig:
             config = msg.dataConfig
         default:
@@ -306,6 +312,7 @@ class LauncherModel: ObservableObject {
     @Published var config: ServiceConfig?
 
     @Published var update: UpdateStatus?
+    @Published var checkingUpdate = false
 
     var bypassProxy: Bool {
         get {

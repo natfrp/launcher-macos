@@ -52,9 +52,7 @@ class DaemonHost {
     }
 
     func startDaemon() {
-        var url = Bundle.main.resourceURL!
-        url.appendPathComponent("SakuraFrpService.app")
-        NSWorkspace.shared.openApplication(at: url, configuration: .init()) { [self] app, err in
+        NSWorkspace.shared.openApplication(at: Bundle.main.resourceURL!.appendingPathComponent("SakuraFrpService.app"), configuration: .init()) { [self] app, err in
             if let err = err {
                 print(err)
                 return
