@@ -13,6 +13,7 @@ struct SakuraLauncherApp: App {
                 .navigationTitle("Sakura Launcher")
                 .environmentObject(model)
                 .onAppear {
+                    appDelegate.model = model
                     appDelegate.isPreview = false
                 }
         }

@@ -251,6 +251,11 @@ import UserNotifications
             finally?()
         }
     }
+    
+    func fullExit() {
+        // TODO
+        NSApplication.shared.terminate(self)
+    }
 
     // MARK: - Tunnels & Nodes
 
