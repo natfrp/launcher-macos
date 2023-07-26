@@ -1,10 +1,3 @@
-//
-//  LogoView.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/1/21.
-//
-
 import SwiftUI
 
 struct LogoView: View {

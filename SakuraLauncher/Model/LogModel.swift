@@ -1,10 +1,3 @@
-//
-//  LogModel.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/8/21.
-//
-
 import SwiftUI
 
 enum LogLevel: String {

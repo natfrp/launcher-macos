@@ -1,10 +1,3 @@
-//
-//  AboutTab.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/3/21.
-//
-
 import SwiftUI
 
 struct AboutTab: View {
@@ -20,10 +13,12 @@ struct AboutTab: View {
                     .font(.title2)
                     .padding(.top, 14)
 
-                Text("版权所有 © 2021 iDea Leaper")
+                Text("版权所有 © 2021-2023 iDea Leaper")
                     .font(.title3)
                     .padding(.top, 14)
-                Link("https://github.com/fengberd/SakuraFrpLauncherMac", destination: URL(string: "https://github.com/fengberd/SakuraFrpLauncherMac")!)
+                Link("https://github.com/natfrp/launcher", destination: URL(string: "https://github.com/natfrp/launcher")!)
+                    .padding(.top, 4)
+                Link("https://github.com/natfrp/launcher-macos", destination: URL(string: "https://github.com/natfrp/launcher-macos")!)
                     .padding(.top, 4)
             }
             .padding(.leading, 24)

@@ -3,15 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
-		F62992D5267763A70056EC1D /* SakuraFrpService.app in Resources */ = {isa = PBXBuildFile; fileRef = F62992D4267763A70056EC1D /* SakuraFrpService.app */; };
-		F62992D826776B700056EC1D /* SocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62992D726776B700056EC1D /* SocketClient.swift */; };
 		F63B3A02267AD77700BC000D /* DaemonHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B3A01267AD77700BC000D /* DaemonHost.swift */; };
 		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
+		F64C5A9B2A6FDA9100328DB3 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = F64C5A9A2A6FDA9100328DB3 /* GRPC */; };
+		F64C5A9E2A6FDE6C00328DB3 /* grpc_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64C5A9C2A6FDE6C00328DB3 /* grpc_service.grpc.swift */; };
+		F64C5A9F2A6FDE6C00328DB3 /* grpc_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64C5A9D2A6FDE6C00328DB3 /* grpc_service.pb.swift */; };
 		F66A6C9A266650B100FF041B /* SakuraLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */; };
 		F66A6C9C266650B100FF041B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6C9B266650B100FF041B /* ContentView.swift */; };
 		F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6C9D266650B200FF041B /* Assets.xcassets */; };
@@ -23,16 +24,9 @@
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
-		F6B5CCAE2679BE8B0014E38A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B5CCAD2679BE8B0014E38A /* Utils.swift */; };
-		F6C47869266A1533003E524C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C47868266A1533003E524C /* Color.swift */; };
+		F6B5CCAE2679BE8B0014E38A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B5CCAD2679BE8B0014E38A /* Extension.swift */; };
 		F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C4786B266A17B8003E524C /* TunnelModel.swift */; };
 		F6C74E5826C7AA8400340149 /* CreateTunnelPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C74E5726C7AA8400340149 /* CreateTunnelPopup.swift */; };
-		F6CDC4492678524E00F9872D /* node.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4452678524E00F9872D /* node.pb.swift */; };
-		F6CDC44A2678524E00F9872D /* tunnel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4462678524E00F9872D /* tunnel.pb.swift */; };
-		F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4472678524E00F9872D /* user.pb.swift */; };
-		F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CDC4482678524E00F9872D /* base.pb.swift */; };
-		F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F6CDC44E267852A300F9872D /* SwiftProtobuf */; };
-		F6CDC454267879C600F9872D /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = F6CDC453267879C600F9872D /* Socket */; };
 		F6D03A862670C7250023D7B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D03A852670C7250023D7B6 /* AppDelegate.swift */; };
 		F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1B2668E00700299C58 /* TunnelTab.swift */; };
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
@@ -40,10 +34,10 @@
 
 /* Begin PBXFileReference section */
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
-		F62992D4267763A70056EC1D /* SakuraFrpService.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = SakuraFrpService.app; path = ../../Projects/SakuraFrpLauncher/SakuraFrpService.macOS/bin/Release/SakuraFrpService.app; sourceTree = "<group>"; };
-		F62992D726776B700056EC1D /* SocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClient.swift; sourceTree = "<group>"; };
 		F63B3A01267AD77700BC000D /* DaemonHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonHost.swift; sourceTree = "<group>"; };
 		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
+		F64C5A9C2A6FDE6C00328DB3 /* grpc_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = grpc_service.grpc.swift; sourceTree = "<group>"; };
+		F64C5A9D2A6FDE6C00328DB3 /* grpc_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = grpc_service.pb.swift; sourceTree = "<group>"; };
 		F66A6C96266650B100FF041B /* SakuraLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SakuraLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F66A6C99266650B100FF041B /* SakuraLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakuraLauncherApp.swift; sourceTree = "<group>"; };
 		F66A6C9B266650B100FF041B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,14 +52,9 @@
 		F6A5D441267344B700F20951 /* LauncherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModel.swift; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
-		F6B5CCAD2679BE8B0014E38A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		F6C47868266A1533003E524C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F6B5CCAD2679BE8B0014E38A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
 		F6C74E5726C7AA8400340149 /* CreateTunnelPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTunnelPopup.swift; sourceTree = "<group>"; };
-		F6CDC4452678524E00F9872D /* node.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = node.pb.swift; sourceTree = "<group>"; };
-		F6CDC4462678524E00F9872D /* tunnel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tunnel.pb.swift; sourceTree = "<group>"; };
-		F6CDC4472678524E00F9872D /* user.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = user.pb.swift; sourceTree = "<group>"; };
-		F6CDC4482678524E00F9872D /* base.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = base.pb.swift; sourceTree = "<group>"; };
 		F6D03A852670C7250023D7B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
 		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
@@ -76,8 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6CDC44F267852A300F9872D /* SwiftProtobuf in Frameworks */,
-				F6CDC454267879C600F9872D /* Socket in Frameworks */,
+				F64C5A9B2A6FDA9100328DB3 /* GRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,9 +76,9 @@
 			isa = PBXGroup;
 			children = (
 				F6E0DE1B2668E00700299C58 /* TunnelTab.swift */,
-				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
-				F6B47BF7266900540051B308 /* SettingsTab.swift */,
 				F6B47BF92669005C0051B308 /* LogTab.swift */,
+				F6B47BF7266900540051B308 /* SettingsTab.swift */,
+				F6E0DE1D2668E06400299C58 /* AboutTab.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -98,7 +86,6 @@
 		F66A6C8D266650B100FF041B = {
 			isa = PBXGroup;
 			children = (
-				F62992D4267763A70056EC1D /* SakuraFrpService.app */,
 				F66A6C98266650B100FF041B /* SakuraLauncher */,
 				F66A6C97266650B100FF041B /* Products */,
 			);
@@ -115,9 +102,9 @@
 		F66A6C98266650B100FF041B /* SakuraLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				F6CDC4442678523900F9872D /* Proto */,
 				F6C47867266A1529003E524C /* Helper */,
 				F6C4786A266A17AE003E524C /* Model */,
-				F6CDC4442678523900F9872D /* Proto */,
 				F62992D626776ABE0056EC1D /* Tabs */,
 				F66A6CA92666515A00FF041B /* View */,
 				F66A6CA2266650B200FF041B /* Info.plist */,
@@ -154,9 +141,7 @@
 		F6C47867266A1529003E524C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				F6C47868266A1533003E524C /* Color.swift */,
-				F62992D726776B700056EC1D /* SocketClient.swift */,
-				F6B5CCAD2679BE8B0014E38A /* Utils.swift */,
+				F6B5CCAD2679BE8B0014E38A /* Extension.swift */,
 				F63B3A01267AD77700BC000D /* DaemonHost.swift */,
 			);
 			path = Helper;
@@ -176,10 +161,8 @@
 		F6CDC4442678523900F9872D /* Proto */ = {
 			isa = PBXGroup;
 			children = (
-				F6CDC4482678524E00F9872D /* base.pb.swift */,
-				F6CDC4452678524E00F9872D /* node.pb.swift */,
-				F6CDC4462678524E00F9872D /* tunnel.pb.swift */,
-				F6CDC4472678524E00F9872D /* user.pb.swift */,
+				F64C5A9C2A6FDE6C00328DB3 /* grpc_service.grpc.swift */,
+				F64C5A9D2A6FDE6C00328DB3 /* grpc_service.pb.swift */,
 			);
 			path = Proto;
 			sourceTree = "<group>";
@@ -201,8 +184,7 @@
 			);
 			name = SakuraLauncher;
 			packageProductDependencies = (
-				F6CDC44E267852A300F9872D /* SwiftProtobuf */,
-				F6CDC453267879C600F9872D /* Socket */,
+				F64C5A9A2A6FDA9100328DB3 /* GRPC */,
 			);
 			productName = SakuraLauncher;
 			productReference = F66A6C96266650B100FF041B /* SakuraLauncher.app */;
@@ -214,8 +196,9 @@
 		F66A6C8E266650B100FF041B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					F66A6C95266650B100FF041B = {
 						CreatedOnToolsVersion = 12.5;
@@ -232,8 +215,7 @@
 			);
 			mainGroup = F66A6C8D266650B100FF041B;
 			packageReferences = (
-				F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */,
-				F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */,
+				F64C5A992A6FDA9100328DB3 /* XCRemoteSwiftPackageReference "grpc-swift" */,
 			);
 			productRefGroup = F66A6C97266650B100FF041B /* Products */;
 			projectDirPath = "";
@@ -249,7 +231,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F62992D5267763A70056EC1D /* SakuraFrpService.app in Resources */,
 				F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */,
 				F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */,
 			);
@@ -267,10 +248,7 @@
 				F69B5867267B704E006A3EBD /* RemoteConfigPopup.swift in Sources */,
 				F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */,
 				F6C4786C266A17B8003E524C /* TunnelModel.swift in Sources */,
-				F6C47869266A1533003E524C /* Color.swift in Sources */,
-				F62992D826776B700056EC1D /* SocketClient.swift in Sources */,
 				F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */,
-				F6CDC44A2678524E00F9872D /* tunnel.pb.swift in Sources */,
 				F698709826665C0B0040CF81 /* TabItemView.swift in Sources */,
 				F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */,
 				F66A6CAB2666517400FF041B /* LogoView.swift in Sources */,
@@ -279,12 +257,11 @@
 				F6E0DE1C2668E00700299C58 /* TunnelTab.swift in Sources */,
 				F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */,
 				F6C74E5826C7AA8400340149 /* CreateTunnelPopup.swift in Sources */,
-				F6CDC44B2678524E00F9872D /* user.pb.swift in Sources */,
-				F6CDC44C2678524E00F9872D /* base.pb.swift in Sources */,
+				F64C5A9F2A6FDE6C00328DB3 /* grpc_service.pb.swift in Sources */,
 				F63B3A02267AD77700BC000D /* DaemonHost.swift in Sources */,
-				F6B5CCAE2679BE8B0014E38A /* Utils.swift in Sources */,
+				F6B5CCAE2679BE8B0014E38A /* Extension.swift in Sources */,
 				F671F41E26790121003A4F87 /* NodeModel.swift in Sources */,
-				F6CDC4492678524E00F9872D /* node.pb.swift in Sources */,
+				F64C5A9E2A6FDE6C00328DB3 /* grpc_service.grpc.swift in Sources */,
 				F616B831266F72F700596A88 /* LogModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +303,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -343,7 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -387,6 +365,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -398,7 +377,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -413,11 +392,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -425,7 +406,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moe.berd.SakuraLauncher;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -437,11 +418,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -449,7 +432,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = moe.berd.SakuraLauncher;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -479,34 +462,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+		F64C5A992A6FDA9100328DB3 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-protobuf";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.17.0;
-			};
-		};
-		F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kitura/BlueSocket";
+			repositoryURL = "https://github.com/grpc/grpc-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.200;
+				minimumVersion = 1.18.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F6CDC44E267852A300F9872D /* SwiftProtobuf */ = {
+		F64C5A9A2A6FDA9100328DB3 /* GRPC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F6CDC44D267852A300F9872D /* XCRemoteSwiftPackageReference "swift-protobuf" */;
-			productName = SwiftProtobuf;
-		};
-		F6CDC453267879C600F9872D /* Socket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F6CDC452267879C600F9872D /* XCRemoteSwiftPackageReference "BlueSocket" */;
-			productName = Socket;
+			package = F64C5A992A6FDA9100328DB3 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

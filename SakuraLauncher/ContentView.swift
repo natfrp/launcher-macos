@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/1/21.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -18,9 +11,6 @@ struct ContentView: View {
                 sidebar
                 content.transition(.opacity.animation(.default.speed(2.5)))
             }
-            .alert(isPresented: $model.showAlert, content: {
-                model.alertContent ?? Alert(title: Text("出现了奇怪的错误"))
-            })
             if let popup = model.popupContent {
                 Color.black.opacity(0.3).edgesIgnoringSafeArea(.all)
                 popup
@@ -65,45 +55,42 @@ struct ContentView: View {
             } else {
                 updateBar
             }
+            Text("预览版 v3.0.0-ALPHA-1, 不代表稳定版使用体验")
+                .font(.system(size: 14))
+                .padding(2)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .background(Color.blue.opacity(0.5))
         }
     }
 
     @ViewBuilder
     var updateBar: some View {
-        if let u = model.update, u.updateAvailable {
+        if model.update.status == .ready {
             Button(action: {
-                NSWorkspace.shared.open(URL(string: u.updateReadyDir)!)
+                if model.update.updateURL.isEmpty {
+                    // prev dev: Can't open the pkg installer programmatically due to sandboxing.
+//                     NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")])
+//                    if NSWorkspace.shared.open(URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")) {
+//                        model.daemon?.stopDaemon()
+//                        NSApplication.shared.terminate(self)
+//                    }
+                } else {
+                    NSWorkspace.shared.open(URL(string: model.update.updateURL)!)
+                }
             }) {
-                Text("发现新版本，点此下载新版安装包")
+                Text(model.update.updateURL.isEmpty ? "更新准备完成, 点此进行更新" : "有更新可用, 点击此处打开下载页面")
                     .font(.system(size: 18))
                     .padding(4)
                     .frame(maxWidth: .infinity)
                     .background(Color(red: 0, green: 0.5, blue: 0.5))
             }.buttonStyle(PlainButtonStyle())
-            /* Can't open the pkg installer programmatically due to sandboxing.
-             if u.updateReadyDir != "" {
-                 Button(action: {
-                     // Ugly workaround
-                     // NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")])
-                     if NSWorkspace.shared.open(URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")) {
-                         model.daemon?.stopDaemon()
-                         NSApplication.shared.terminate(self)
-                     }
-                 }) {
-                     Text("更新准备完成, 点此进行更新")
-                         .font(.system(size: 18))
-                         .padding(4)
-                         .frame(maxWidth: .infinity)
-                         .background(Color(red: 0, green: 0.5, blue: 0.5))
-                 }.buttonStyle(PlainButtonStyle())
-             } else {
-                 Text("下载更新中... \(Double(u.downloadCurrent) / 1_048_576, specifier: "%.2f")MiB/\(Double(u.downloadTotal) / 1_048_576, specifier: "%.2f")MiB")
-                     .font(.system(size: 18))
-                     .padding(4)
-                     .frame(maxWidth: .infinity)
-                     .background(Color(red: 0, green: 0.5, blue: 0.5))
-             }
-             */
+        } else {
+            Text("下载更新中... \(Double(model.update.downloadCompleted) / 1_048_576, specifier: "%.2f")MiB/\(Double(model.update.downloadTotal) / 1_048_576, specifier: "%.2f")MiB")
+                .font(.system(size: 18))
+                .padding(4)
+                .frame(maxWidth: .infinity)
+                .background(Color(red: 0, green: 0.5, blue: 0.5))
         }
     }
 }

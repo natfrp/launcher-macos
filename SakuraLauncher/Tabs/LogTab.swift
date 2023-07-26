@@ -1,10 +1,3 @@
-//
-//  LogTab.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/3/21.
-//
-
 import SwiftUI
 
 struct LogTab: View {
@@ -24,7 +17,7 @@ struct LogTab: View {
                     .font(.title)
                     .padding(.leading, 24)
                 Button(action: {
-                    _ = model.pipe.request(.logClear)
+//                    _ = model.pipe.request(.logClear)
 
                     model.logs = []
                     model.logFilters = [:]

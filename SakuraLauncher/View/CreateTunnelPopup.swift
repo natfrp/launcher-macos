@@ -1,10 +1,3 @@
-//
-//  CreateTunnelPopup.swift
-//  SakuraLauncher
-//
-//  Created on 8/14/21.
-//
-
 import SwiftUI
 
 struct CreateTunnelPopup: View {
@@ -17,6 +10,8 @@ struct CreateTunnelPopup: View {
     @State var local_port = ""
     @State var remote_port = ""
     @State var node = ""
+
+    @State var creating = false
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -61,28 +56,25 @@ struct CreateTunnelPopup: View {
                         model.showAlert("请输入正确的本地端口")
                         return
                     }
-                    var rport: Int32 = 0
-                    if remote_port != "" {
-                        guard let tmp = Int32(remote_port) else {
-                            model.showAlert("请输入正确的远程端口，您也可以选择留空随机生成")
-                            return
-                        }
-                        rport = tmp
+                    creating = true
+                    model.rpcWithAlert {
+                        _ = try await model.RPC?.updateTunnel(.with {
+                            $0.action = .add
+                            $0.tunnel = Tunnel.with {
+                                $0.name = name
+                                $0.note = note
+                                $0.type = type
+                                $0.localPort = lport
+                                $0.localIp = local_ip
+                                $0.remote = remote_port
+                                $0.node = Int32(node)!
+                            }
+                        })
+                        model.closePopup()
                     }
-                    model.requestWithSimpleFailureAlert(RequestBase.with {
-                        $0.type = .tunnelCreate
-                        $0.dataCreateTunnel = CreateTunnel.with {
-                            $0.name = name
-                            $0.note = note
-                            $0.type = type
-                            $0.localPort = lport
-                            $0.localAddress = local_ip
-                            $0.remotePort = rport
-                            $0.node = Int32(node)!
-                        }
-                    }, model.closePopup)
                 }
                 .keyboardShortcut(.defaultAction)
+                .disabled(creating)
             }
         }
         .padding()

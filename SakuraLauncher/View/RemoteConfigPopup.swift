@@ -1,10 +1,3 @@
-//
-//  RemoteConfigPopup.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/17/21.
-//
-
 import SwiftUI
 
 struct RemoteConfigPopup: View {
@@ -31,7 +24,7 @@ struct RemoteConfigPopup: View {
                     if password == "" {
                         return
                     }
-                    model.config?.remoteKeyNew = password
+                    model.config.remoteManagementKey = password
                     model.pushServiceConfig()
                     model.closePopup()
                 }

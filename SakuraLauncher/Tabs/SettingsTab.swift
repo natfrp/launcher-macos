@@ -1,16 +1,12 @@
-//
-//  SettingsTab.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/3/21.
-//
-
 import SwiftUI
 
 struct SettingsTab: View {
     @EnvironmentObject var model: LauncherModel
 
     @State var token = ""
+
+    @State var pendingLogin = false
+    @State var checkingUpdate = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,40 +18,39 @@ struct SettingsTab: View {
                 VStack(alignment: .leading, spacing: 16) {
                     if model.connected && model.user.status == .loggedIn {
                         HStack {
-                            Text("\(model.user.name) - \(model.user.meta)")
+                            Text("\(model.user.name)")
                                 .lineLimit(nil)
                                 .fixedSize(horizontal: false, vertical: true)
-                            Button("退出", action: {
-                                model.requestWithSimpleFailureAlert(.userLogout)
-                            }).padding(.leading)
+                            Button("退出") {
+                                pendingLogin = true
+                                model.rpcWithAlert({
+                                    _ = try await model.RPC?.logout(model.rpcEmpty)
+                                }) { pendingLogin = false }
+                            }.padding(.leading)
+                                .disabled(pendingLogin)
                         }
                     } else {
                         HStack {
                             Text("登录账户:")
                             TextField("访问密钥", text: !model.connected || model.user.status == .noLogin ? $token : .constant("****************"))
                                 .frame(width: 200)
-                            Button(model.user.status == .pending ? "登录中..." : "登录", action: {
-                                DispatchQueue.global(qos: .userInitiated).async { [self] in
-                                    let resp = model.pipe.request(RequestBase.with {
-                                        $0.type = .userLogin
-                                        $0.dataUserLogin = UserLogin.with {
-                                            $0.token = token
-                                        }
+                            Button(model.user.status == .pending ? "登录中..." : "登录") {
+                                pendingLogin = true
+                                model.rpcWithAlert({
+                                    _ = try await model.RPC?.login(.with {
+                                        $0.token = token
                                     })
-                                    if !resp.success {
-                                        model.showAlert(resp.message, title: "登录失败")
-                                    }
-                                    _ = model.syncAll()
-                                }
-                            })
+                                }) { pendingLogin = false }
+                            }
+                            .disabled(pendingLogin)
                         }
                         .disabled(!model.connected || model.user.status == .pending)
                     }
                     Divider()
                     Toggle("日志自动换行", isOn: $model.logTextWrapping)
                         .toggleStyle(SwitchToggleStyle())
-                    Toggle("隧道状态通知", isOn: $model.enableStatusNotification)
-                        .toggleStyle(SwitchToggleStyle())
+//                    Toggle("隧道状态通知", isOn: $model.notificationMode)
+//                        .toggleStyle(SwitchToggleStyle())
                     Toggle("绕过系统代理", isOn: $model.bypassProxy)
                         .toggleStyle(SwitchToggleStyle())
                         .disabled(!model.connected)
@@ -64,16 +59,18 @@ struct SettingsTab: View {
                             .toggleStyle(SwitchToggleStyle())
                             .disabled(!model.connected)
                         Button("立即检查") {
-                            model.checkingUpdate = true
-                            model.requestWithSimpleFailureAlert(.controlCheckUpdate)
+                            checkingUpdate = true
+                            model.rpcWithAlert({
+                                _ = try await model.RPC?.checkUpdate(model.rpcEmpty)
+                            }) { checkingUpdate = false }
                         }
-                        .disabled(!model.connected || !model.checkUpdate || model.checkingUpdate)
+                        .disabled(!model.connected || !model.checkUpdate || checkingUpdate)
                     }
                     Divider()
                     HStack {
                         Toggle("启用远程管理", isOn: $model.enableRemoteManagement)
                             .toggleStyle(SwitchToggleStyle())
-                            .disabled(!model.connected || !(model.config?.remoteKeySet ?? false))
+                            .disabled(!model.connected || model.config.remoteManagementKey != "SET")
                         Button("设置密码") {
                             model.showPopup(AnyView(RemoteConfigPopup()))
                         }

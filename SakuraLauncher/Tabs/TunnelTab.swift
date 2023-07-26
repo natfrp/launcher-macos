@@ -1,14 +1,9 @@
-//
-//  TunnelTab.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/3/21.
-//
-
 import SwiftUI
 
 struct TunnelTab: View {
     @EnvironmentObject var model: LauncherModel
+
+    @State var reloading = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,14 +22,17 @@ struct TunnelTab: View {
                 .padding(.leading, 8)
 
                 Button(action: {
-                    model.tunnels.removeAll()
-                    model.requestWithSimpleFailureAlert(.tunnelReload)
+                    reloading = true
+                    model.rpcWithAlert({
+                        _ = try await model.RPC?.reloadTunnels(model.rpcEmpty)
+                    }) { reloading = false }
                 }) {
                     Image(systemName: "arrow.clockwise")
                 }
                 .buttonStyle(PlainButtonStyle())
                 .font(.system(size: 16))
                 .padding(.leading, 8)
+                .disabled(reloading)
             }
             if model.tunnels.count == 0 {
                 Text("还没有隧道哦")
@@ -48,10 +46,22 @@ struct TunnelTab: View {
                             ForEach(model.tunnels, id: \.id) { t in
                                 TunnelItemView(tunnel: t).contextMenu {
                                     Button("删除隧道") {
-                                        model.alertContent = Alert(title: Text("操作确认"), message: Text("是否确认删除隧道 #\(String(t.id)) \(t.name)?"), primaryButton: .destructive(Text("确认删除"), action: {
-                                            model.deleteTunnel(t.id)
-                                        }), secondaryButton: .cancel())
-                                        model.showAlert = true
+                                        let alert = NSAlert()
+                                        alert.messageText = "操作确认"
+                                        alert.informativeText = "是否确认删除隧道 #\(String(t.id)) \(t.name)?"
+                                        alert.alertStyle = .warning
+                                        alert.addButton(withTitle: "确认删除")
+                                        alert.addButton(withTitle: "取消")
+                                        if alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn {
+                                            model.rpcWithAlert {
+                                                _ = try await model.RPC?.updateTunnel(.with {
+                                                    $0.action = .delete
+                                                    $0.tunnel = .with {
+                                                        $0.id = t.id
+                                                    }
+                                                })
+                                            }
+                                        }
                                     }
                                 }
                             }

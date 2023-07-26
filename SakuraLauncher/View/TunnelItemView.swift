@@ -1,10 +1,3 @@
-//
-//  TunnelItemView.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/4/21.
-//
-
 import SwiftUI
 
 struct TunnelItemView: View {
@@ -19,7 +12,6 @@ struct TunnelItemView: View {
                 Toggle(isOn: $tunnel.enabled) {}
                     .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     .labelsHidden()
-                    .disabled(tunnel.proto.status == .pending)
             }
             Spacer()
             Text("#\(tunnel.node) \(tunnel.nodeName)")

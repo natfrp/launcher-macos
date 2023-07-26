@@ -1,10 +1,3 @@
-//
-//  TabItemView.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/1/21.
-//
-
 import SwiftUI
 
 struct TabItemView: View {
@@ -30,13 +23,13 @@ struct TabItemView: View {
                 Image(systemName: iconImage)
                     .font(.system(size: 20))
                     .frame(width: 20)
-                    .padding(.trailing, 8)
+                    .padding(.trailing, 14)
                 Text(title)
                     .font(.system(size: 16))
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 48, maxHeight: 48, alignment: .leading)
-            .padding(.leading, 20)
+            .padding(.leading, 32)
             .contentShape(Capsule())
         }
         .buttonStyle(PlainButtonStyle())

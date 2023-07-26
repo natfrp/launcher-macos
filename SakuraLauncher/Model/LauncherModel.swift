@@ -1,205 +1,50 @@
-//
-//  LauncherModel.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/11/21.
-//
-
+import GRPC
+import NIOPosix
 import SwiftUI
 import UserNotifications
 
-class LauncherModel: ObservableObject {
-    let pipe = SocketClient(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "moe.berd.SakuraL")!.path + "/Library/Caches")
+@MainActor class LauncherModel: ObservableObject {
     var daemon: DaemonHost?
-
-#if DEBUG
-    init(preview: Bool) {
-        assert(preview)
-        logTextWrapping = true
-        enableStatusNotification = false
-    }
-#endif
 
     init() {
         UserDefaults.standard.register(defaults: [
             "logTextWrapping": true,
-            "enableStatusNotification": false,
+            "notificationMode": 0,
         ])
         logTextWrapping = UserDefaults.standard.bool(forKey: "logTextWrapping")
-        enableStatusNotification = UserDefaults.standard.bool(forKey: "enableStatusNotification")
+        notificationMode = UserDefaults.standard.integer(forKey: "notificationMode")
 
         logDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
 
         daemon = DaemonHost(self)
-        pipe.onPushMessage = onServerPush
 
-        // This looks silly, but prevents the alert from showing multiple times (a bug)
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] _ in
-            if let alert = queuedAlert {
-                queuedAlert = nil
-                alertContent = Alert(title: Text(alert.1), message: Text(alert.0))
-                showAlert = true
-            }
-        }
+        Task(priority: .background) {
+            let loopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+            defer { try? loopGroup.syncShutdownGracefully() }
 
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [self] _ in
-            if pipe.connected {
-                return
-            }
-            connected = false
-
-            if !pipe.connect() {
-                return
-            }
-            if !syncUser() || !syncAll() {
-                pipe.close()
-                return
-            }
-            connected = true
-        }
-    }
-
-    // MARK: - Daemon IPC
-
-    func syncUser() -> Bool {
-        let resp = pipe.request(.userInfo)
-        if resp.success {
-            user = resp.dataUser
-        }
-        return resp.success
-    }
-
-    func syncAll() -> Bool {
-        if !syncLog() || !syncConfig() || !syncUpdate() {
-            return false
-        }
-        _ = syncNodes()
-        _ = syncTunnels()
-        return true
-    }
-
-    func syncLog() -> Bool {
-        let resp = pipe.request(.logGet)
-        DispatchQueue.main.async { [self] in
-            if resp.success {
-                logs.removeAll()
-                for l in resp.dataLog.data {
-                    log(l)
+            while true {
+                do {
+                    try await connect(loopGroup)
+                } catch let e {
+                    // TODO: Alert after 3 fails
+                    print(e)
                 }
-            } else {
-                showAlert(resp.message, title: "日志同步失败")
-            }
-        }
-        return resp.success
-    }
-
-    func syncConfig() -> Bool {
-        let resp = pipe.request(.controlConfigGet)
-        DispatchQueue.main.async { [self] in
-            if resp.success {
-                config = resp.dataConfig
-            } else {
-                showAlert(resp.message, title: "守护进程配置同步失败")
-            }
-        }
-        return resp.success
-    }
-
-    func syncUpdate() -> Bool {
-        let resp = pipe.request(.controlGetUpdate)
-        DispatchQueue.main.async { [self] in
-            if resp.success {
-                update = resp.dataUpdate
-            } else {
-                showAlert(resp.message, title: "更新状态同步失败")
-            }
-        }
-        return resp.success
-    }
-
-    func syncNodes() -> Bool {
-        let resp = pipe.request(.nodeList)
-        if resp.success {
-            DispatchQueue.main.async {
-                self.loadNodes(resp.dataNodes.nodes)
-            }
-        }
-        return resp.success
-    }
-
-    func syncTunnels() -> Bool {
-        let resp = pipe.request(.tunnelList)
-        if resp.success {
-            DispatchQueue.main.async {
-                self.loadTunnels(resp.dataTunnels.tunnels)
-            }
-        }
-        return resp.success
-    }
-
-    func onServerPush(msg: PushMessageBase) {
-        switch msg.type {
-        case .updateUser:
-            user = msg.dataUser
-        case .updateTunnel:
-            for t in tunnels {
-                if t.id == msg.dataTunnel.id {
-                    t.proto = msg.dataTunnel
-                    break
-                }
-            }
-        case .updateTunnels:
-            loadTunnels(msg.dataTunnels.tunnels)
-        case .updateNodes:
-            nodes.removeAll()
-            loadNodes(msg.dataNodes.nodes)
-        case .appendLog:
-            for l in msg.dataLog.data {
-                log(l)
-            }
-        case .pushUpdate:
-            update = msg.dataUpdate
-            if checkingUpdate {
-                checkingUpdate = false
-                if !update!.updateAvailable {
-                    showAlert("您当前使用的启动器为最新版本")
-                }
-            }
-        case .pushConfig:
-            config = msg.dataConfig
-        default:
-            assertionFailure("收到未知 PUSH")
-        }
-    }
-
-    func requestWithSimpleFailureAlert(_ msg: MessageID, _ success: (() -> Void)? = nil) {
-        requestWithSimpleFailureAlert(RequestBase.with {
-            $0.type = msg
-        }, success)
-    }
-
-    func requestWithSimpleFailureAlert(_ msg: RequestBase, _ success: (() -> Void)? = nil) {
-        DispatchQueue.global(qos: .userInteractive).async { [self] in
-            let resp = pipe.request(msg)
-            if !resp.success {
-                showAlert(resp.message, title: "错误")
-            } else if let s = success {
-                DispatchQueue.main.sync(execute: s)
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s, gRPC itself will wait for 1s
             }
         }
     }
 
-    // MARK: - View: Generic & User
+    // MARK: - View: Generic
 
-    var queuedAlert: (String, String)?
-
-    @Published var showAlert: Bool = false
-    @Published var alertContent: Alert?
     @Published var popupContent: AnyView?
 
-    func showAlert(_ text: String, title: String = "提示") {
-        DispatchQueue.main.async {
-            self.queuedAlert = (text, title)
+    func showAlert(_ text: String, _ title: String = "提示") {
+        Task { @MainActor in
+            let alert = NSAlert()
+            alert.messageText = title
+            alert.informativeText = text
+            alert.alertStyle = .warning
+            alert.runModal()
         }
     }
 
@@ -217,27 +62,193 @@ class LauncherModel: ObservableObject {
 
     @Published var connected: Bool = false
 
-    @Published var user = User()
-
     // MARK: - View: Launcher Settings
 
     @Published var logTextWrapping: Bool {
         willSet { UserDefaults.standard.setValue(newValue, forKey: "logTextWrapping") }
     }
 
-    @Published var enableStatusNotification: Bool {
-        willSet { UserDefaults.standard.setValue(newValue, forKey: "enableStatusNotification") }
+    @Published var notificationMode: Int {
+        willSet { UserDefaults.standard.setValue(newValue, forKey: "notificationMode") }
         didSet {
-            if !enableStatusNotification {
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
-                    if !success {
-                        DispatchQueue.main.async {
-                            self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", title: "通知权限被禁用")
-                            self.enableStatusNotification = true
+            if notificationMode != 1 {
+//                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
+//                    if !success {
+//                        self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", "通知权限被禁用")
+//                    }
+//                }
+            }
+        }
+    }
+
+    // MARK: - RPC
+
+    let rpcEmpty = Empty()
+    var RPC: NatfrpServiceAsyncClient?
+
+    func initStream<T>(_ s: GRPCAsyncResponseStream<T>, _ cb: @escaping (T) -> Void) async throws -> Task<Void, Error> {
+        var iter = s.makeAsyncIterator()
+        guard let first = try await iter.next() else {
+            throw GRPCStatus(code: .notFound, message: "Empty stream")
+        }
+        cb(first)
+
+        return Task {
+            while true {
+                guard let r = try await iter.next() else {
+                    return
+                }
+                cb(r)
+            }
+        }
+    }
+
+    func connect(_ loopGroup: MultiThreadedEventLoopGroup) async throws {
+        let channel = try GRPCChannelPool.with(
+            target: .unixDomainSocket("/var/run/natfrp-service.sock"),
+            transportSecurity: .plaintext,
+            eventLoopGroup: loopGroup
+        ) {
+            $0.connectionBackoff.retries = .none
+            $0.connectionPool.maxWaitTime = .seconds(1)
+        }
+        defer { _ = channel.close() }
+
+        let client = NatfrpServiceAsyncClient(channel: channel)
+
+        RPC = client
+        defer { RPC = nil }
+
+        let tasks = try await [
+            initStream(client.streamUpdate(rpcEmpty)) { [self] u in
+                if u.hasUser {
+                    user = u.user
+                }
+                if u.hasNodes {
+                    Task {
+                        for (k, n) in u.nodes.nodes {
+                            nodes[k] = NodeModel(n)
                         }
                     }
                 }
+                if u.hasConfig {
+                    config = u.config
+                }
+                if u.hasUpdate {
+                    update = u.update
+                }
+            },
+            initStream(client.streamLog(rpcEmpty)) { [self] l in
+                if l.category == .unknown {
+                    return
+                } else if l.category == .alert {
+                    if notificationMode == 0 ||
+                        notificationMode == 2 && (l.level == .warn || l.level == .error || l.level == .fatal)
+                    {
+                        let content = UNMutableNotificationContent()
+                        content.title = l.source
+                        content.subtitle = l.data
+                        content.sound = UNNotificationSound.default
+
+                        UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "StatusNotification", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)))
+                    }
+                    return
+                }
+
+                let entry = LogModel(source: l.source, data: l.data)
+                if l.category == .frpc {
+                    entry.source = "Tunnel/" + entry.source
+                    if let match = LogModel.pattern.firstMatch(in: l.data, range: NSRange(l.data.startIndex..., in: l.data)) {
+                        entry.time = l.data.groupOf(match, group: "Time")
+                        entry.data = l.data.groupOf(match, group: "Content")
+                        switch l.data.groupOf(match, group: "Level") {
+                        case "W":
+                            entry.level = .warning
+                        case "E":
+                            entry.level = .error
+                        case "I":
+                            fallthrough
+                        default:
+                            entry.level = .info
+                        }
+                    }
+                } else {
+                    entry.time = logDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(l.time)))
+                    switch l.level {
+                    case .error:
+                        entry.level = .error
+                    case .warn:
+                        entry.level = .warning
+                    case .info:
+                        fallthrough
+                    default:
+                        entry.level = .info
+                    }
+                }
+                logs.append(entry)
+
+                Task {
+                    if logFilters[entry.source] == nil {
+                        logFilters[entry.source] = 1
+                    } else {
+                        logFilters[entry.source]! += 1
+                    }
+
+                    while logs.count > 4096 {
+                        let del = logs.remove(at: 0)
+                        logFilters[del.source]! -= 1
+                        if logFilters[del.source]! == 0 {
+                            logFilters.removeValue(forKey: del.source)
+                        }
+                    }
+                }
+            },
+            initStream(client.streamTunnels(rpcEmpty)) { [self] tu in
+                switch tu.action {
+                case .add:
+                    tunnels.append(TunnelModel(tu.tunnel, launcher: self))
+                case .clear:
+                    tunnels = []
+                case .delete:
+                    tunnels.removeAll { $0.id == tu.tunnel.id }
+                case .update:
+                    Task {
+                        if let idx = tunnels.firstIndex(where: { $0.id == tu.tunnel.id }) {
+                            tunnels[idx].proto = tu.tunnel
+                        }
+                    }
+                default:
+                    break
+                }
+            },
+        ]
+
+        connected = true
+        defer { connected = false }
+
+        try await withThrowingTaskGroup(of: Void.self) { g in
+            for task in tasks {
+                g.addTask { try await task.value }
             }
+            try await g.waitForAll()
+        }
+    }
+
+    func rpcWithAlert(_ body: @escaping () async throws -> Void, _ finally: (() -> Void)? = nil) {
+        Task {
+            do {
+                try await body()
+            } catch {
+                let alert = NSAlert(error: error)
+                // check grpc response msg
+                if let gErr = error as? GRPCStatus {
+                    if gErr.code.rawValue == 2, let msg = gErr.message {
+                        alert.messageText = msg
+                    }
+                }
+                alert.runModal()
+            }
+            finally?()
         }
     }
 
@@ -245,28 +256,7 @@ class LauncherModel: ObservableObject {
 
     @Published var nodes: [Int32: NodeModel] = [:]
 
-    private func loadNodes(_ list: [Node]) {
-        nodes.removeAll()
-        for n in list {
-            nodes[n.id] = NodeModel(n)
-        }
-    }
-
     @Published var tunnels: [TunnelModel] = []
-
-    private func loadTunnels(_ list: [Tunnel]) {
-        tunnels.removeAll()
-        for t in list {
-            tunnels.append(TunnelModel(t, launcher: self))
-        }
-    }
-
-    func deleteTunnel(_ id: Int32) {
-        requestWithSimpleFailureAlert(RequestBase.with {
-            $0.type = .tunnelDelete
-            $0.dataID = id
-        })
-    }
 
     // MARK: - Logging
 
@@ -275,115 +265,50 @@ class LauncherModel: ObservableObject {
 
     private var logDateFormatter = DateFormatter()
 
-    func log(_ l: Log) {
-        let entry = LogModel(source: l.source, data: l.data)
-        if l.category == 0 // CATEGORY_FRPC
-        {
-            entry.source = "Tunnel/" + entry.source
-            if let match = LogModel.pattern.firstMatch(in: l.data, range: NSRange(l.data.startIndex..., in: l.data)) {
-                entry.time = l.data.groupOf(match, group: "Time")
-                entry.data = l.data.groupOf(match, group: "Content")
-                switch l.data.groupOf(match, group: "Level") {
-                case "W":
-                    entry.level = .warning
-                case "E":
-                    entry.level = .error
-                case "I":
-                    fallthrough
-                default:
-                    entry.level = .info
-                }
-            }
-        } else {
-            entry.time = logDateFormatter.string(from: Utils.parseSakuraTime(seconds: Double(l.time)))
-            switch l.category {
-            case 2:
-                entry.level = .warning
-            case 3:
-                entry.level = .error
-            case 4: // Notice INFO
-                fallthrough
-            case 5: // Notice WARNING
-                fallthrough
-            case 6: // Notice ERROR
-                if enableStatusNotification {
-                    let content = UNMutableNotificationContent()
-                    content.title = entry.source
-                    content.subtitle = entry.data
-                    content.sound = UNNotificationSound.default
-
-                    UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "StatusNotification", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)))
-                }
-                return
-            case 1:
-                fallthrough
-            default:
-                entry.level = .info
-            }
-        }
-
-        logs.append(entry)
-        if logFilters[entry.source] == nil {
-            logFilters[entry.source] = 1
-        } else {
-            logFilters[entry.source]! += 1
-        }
-
-        while logs.count > 4096 {
-            let del = logs.remove(at: 0)
-            logFilters[del.source]! -= 1
-            if logFilters[del.source]! == 0 {
-                logFilters.removeValue(forKey: del.source)
-            }
-        }
-    }
-
     // MARK: - Service Config & Update
 
-    @Published var config: ServiceConfig?
+    @Published var user = User()
 
-    @Published var update: UpdateStatus?
-    @Published var checkingUpdate = false
+    @Published var config = ServiceConfig()
+    @Published var update = SoftwareUpdate()
 
     var bypassProxy: Bool {
-        get {
-            config?.bypassProxy ?? false
-        }
+        get { config.bypassProxy }
         set {
-            config?.bypassProxy = newValue
+            config.bypassProxy = newValue
             pushServiceConfig()
         }
     }
 
     var checkUpdate: Bool {
-        get {
-            update != nil && config?.updateInterval ?? -1 != -1
-        }
+        get { config.updateInterval > 0 }
         set {
-            config?.updateInterval = newValue ? 86400 : -1
+            config.updateInterval = newValue ? 86400 : -1
             pushServiceConfig()
         }
     }
 
     var enableRemoteManagement: Bool {
-        get {
-            (config?.remoteManagement ?? false) && (config?.remoteKeySet ?? false)
-        }
+        get { config.remoteManagement && config.remoteManagementKey == "SET" }
         set {
-            config?.remoteManagement = newValue
+            config.remoteManagement = newValue
             pushServiceConfig()
         }
     }
 
     func pushServiceConfig() {
-        guard let config = config else {
-            return
+        rpcWithAlert { [self] in
+            _ = try await RPC?.updateConfig(config)
         }
-        requestWithSimpleFailureAlert(RequestBase.with {
-            $0.type = .controlConfigSet
-            $0.dataConfig = config
-        })
     }
+
+#if DEBUG
+    init(preview: Bool) {
+        assert(preview)
+        logTextWrapping = true
+        notificationMode = 1
+    }
+#endif
 }
 
 #if DEBUG
@@ -406,21 +331,26 @@ class LauncherModel_Preview: LauncherModel {
             $0.name = "SampleTunnel 1"
             $0.node = 1
             $0.type = "TCP"
-            $0.description_p = "2333 -> 127.0.0.1:2333"
+            $0.remote = "2333"
+            $0.localIp = "127.0.0.1"
+            $0.localPort = 2333
         }, launcher: self))
         tunnels.append(TunnelModel(Tunnel.with {
             $0.id = 2
             $0.name = "SampleTunnel 2"
             $0.node = 2
             $0.type = "UDP"
-            $0.description_p = "2333 -> 127.0.0.1:6666"
+            $0.remote = "2333"
+            $0.localIp = "127.0.0.1"
+            $0.localPort = 6666
         }, launcher: self))
         tunnels.append(TunnelModel(Tunnel.with {
             $0.id = 3
             $0.name = "SampleTunnel 3"
             $0.node = 3
-            $0.type = "HTTP"
-            $0.description_p = "berd.moe -> 127.0.0.1:8080"
+            $0.type = "http"
+            $0.localIp = "127.0.0.1"
+            $0.localPort = 2333
         }, launcher: self))
 
         logs = [

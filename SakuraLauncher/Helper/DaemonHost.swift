@@ -1,10 +1,3 @@
-//
-//  DaemonHost.swift
-//  SakuraLauncher
-//
-//  Created by FENGberd on 6/17/21.
-//
-
 import AppKit
 import Foundation
 
@@ -19,49 +12,50 @@ class DaemonHost {
 
     init(_ model: LauncherModel) {
         self.model = model
-        DispatchQueue(label: "Daemon Host Watchdog", qos: .background).async {
-            let runLoop = RunLoop.current
-            runLoop.add(Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
-                if running {
-                    return
-                }
-
-                process = findInstance()
-                if running {
-                    return
-                }
-
-                queue.sync {
-                    if state == 2 {
-                        timer.invalidate()
-                        return
-                    }
-                    if state == 1 {
-                        return
-                    }
-                    state = 1
-                    startDaemon()
-                }
-            }, forMode: .default)
-            runLoop.run()
-        }
+//        DispatchQueue(label: "Daemon Host Watchdog", qos: .background).async {
+//            let runLoop = RunLoop.current
+//            runLoop.add(Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+//                if running {
+//                    return
+//                }
+//
+//                process = findInstance()
+//                if running {
+//                    return
+//                }
+//
+//                queue.sync {
+//                    if state == 2 {
+//                        timer.invalidate()
+//                        return
+//                    }
+//                    if state == 1 {
+//                        return
+//                    }
+//                    state = 1
+//                    startDaemon()
+//                }
+//            }, forMode: .default)
+//            runLoop.run()
+//        }
     }
 
     func findInstance() -> NSRunningApplication? {
-        NSWorkspace.shared.runningApplications.first { $0.bundleIdentifier == "moe.berd.SakuraLauncher.Service" }
+//        NSWorkspace.shared.runningApplications.first { $0.bundleIdentifier == "moe.berd.SakuraLauncher.Service" }
+        nil
     }
 
     func startDaemon() {
-        NSWorkspace.shared.openApplication(at: Bundle.main.resourceURL!.appendingPathComponent("SakuraFrpService.app"), configuration: .init()) { [self] app, err in
-            if let err = err {
-                print(err)
-                return
-            }
-            process = app
-            queue.async {
-                state = 0
-            }
-        }
+//        NSWorkspace.shared.openApplication(at: Bundle.main.resourceURL!.appendingPathComponent("SakuraFrpService.app"), configuration: .init()) { [self] app, err in
+//            if let err = err {
+//                print(err)
+//                return
+//            }
+//            process = app
+//            queue.async {
+//                state = 0
+//            }
+//        }
     }
 
     /**
@@ -69,22 +63,22 @@ class DaemonHost {
      DO NOT call startDaemon after stopping it, create a new DaemonHost instead.
      */
     func stopDaemon() {
-        queue.sync {
-            state = 2
-        }
-        if model.pipe.connected {
-            _ = model.pipe.request(.controlExit)
-        }
-        queue.async { [self] in
-            let date = Date()
-            while date.timeIntervalSinceNow > -2 {
-                if !running {
-                    return
-                }
-                usleep(100_000)
-            }
-            print("WTF, not a clean exit")
-            process?.terminate()
-        }
+//        queue.sync {
+//            state = 2
+//        }
+//        if model.pipe.connected {
+////            _ = model.pipe.request(.controlExit)
+//        }
+//        queue.async { [self] in
+//            let date = Date()
+//            while date.timeIntervalSinceNow > -2 {
+//                if !running {
+//                    return
+//                }
+//                usleep(100_000)
+//            }
+//            print("WTF, not a clean exit")
+//            process?.terminate()
+//        }
     }
 }
