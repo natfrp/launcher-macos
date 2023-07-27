@@ -35,6 +35,18 @@ import UserNotifications
                     // TODO: Alert after 3 fails
                     print(e)
                 }
+
+                // Reset state
+                user = .init()
+                config = .init()
+                update = .init()
+
+                logs = .init()
+                logFilters = .init()
+
+                nodes = .init()
+                tunnels = .init()
+
                 try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s, gRPC itself will wait for 1s
             }
         }
