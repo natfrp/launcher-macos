@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AboutTab: View {
+    @EnvironmentObject var model: LauncherModel
+    
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -9,7 +11,7 @@ struct AboutTab: View {
                 Text("SakuraFrp Launcher for macOS")
                     .font(.title)
 
-                Text("版本 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)")
+                Text("版本 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String) / \(model.update.serviceVersion) / \(model.update.frpcVersion)")
                     .font(.title2)
                     .padding(.top, 14)
 
