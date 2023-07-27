@@ -78,7 +78,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     }
 
     @MainActor @objc func exitFullAction(_: AnyObject?) {
-        model?.fullExit()
+        statusBarMenu.items[3].isEnabled = false
+        model!.daemon.fullShutdown()
     }
 }
 

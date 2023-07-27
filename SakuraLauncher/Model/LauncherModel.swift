@@ -4,7 +4,7 @@ import SwiftUI
 import UserNotifications
 
 @MainActor class LauncherModel: ObservableObject {
-    var daemon: DaemonHost?
+    var daemon: DaemonHost!
 
     init() {
         UserDefaults.standard.register(defaults: [
@@ -22,9 +22,11 @@ import UserNotifications
             let loopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
             defer { try? loopGroup.syncShutdownGracefully() }
 
+            let sock = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "cr.c.natfrp")!.path + "/Library/Caches/sock"
+
             while true {
                 do {
-                    try await connect(loopGroup)
+                    try await connect(loopGroup, socket: sock)
                 } catch let e {
                     // TODO: Alert after 3 fails
                     print(e)
@@ -103,9 +105,9 @@ import UserNotifications
         }
     }
 
-    func connect(_ loopGroup: MultiThreadedEventLoopGroup) async throws {
+    func connect(_ loopGroup: MultiThreadedEventLoopGroup, socket: String) async throws {
         let channel = try GRPCChannelPool.with(
-            target: .unixDomainSocket("/var/run/natfrp-service.sock"),
+            target: .unixDomainSocket(socket),
             transportSecurity: .plaintext,
             eventLoopGroup: loopGroup
         ) {
@@ -250,11 +252,6 @@ import UserNotifications
             }
             finally?()
         }
-    }
-    
-    func fullExit() {
-        // TODO
-        NSApplication.shared.terminate(self)
     }
 
     // MARK: - Tunnels & Nodes
