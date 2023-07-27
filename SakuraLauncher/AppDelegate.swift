@@ -28,10 +28,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
 
         statusBarMenu = NSMenu()
         statusBarMenu.delegate = self
-        statusBarMenu.addItem(withTitle: "显示启动器", action: #selector(exitAction), keyEquivalent: "")
+        statusBarMenu.autoenablesItems = false
+        statusBarMenu.addItem(withTitle: "隐藏", action: #selector(hideAction), keyEquivalent: "")
         statusBarMenu.addItem(NSMenuItem.separator())
-        statusBarMenu.addItem(withTitle: "退出", action: #selector(showAction), keyEquivalent: "")
-        statusBarMenu.addItem(withTitle: "彻底退出", action: #selector(exitFullAction), keyEquivalent: "")
+        statusBarMenu.addItem(withTitle: "退出", action: #selector(exitAction), keyEquivalent: "q")
+            .keyEquivalentModifierMask = [.command]
+        statusBarMenu.addItem(withTitle: "彻底退出", action: #selector(exitFullAction), keyEquivalent: "q")
+            .keyEquivalentModifierMask = [.command, .shift]
 
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let btn = statusBarItem.button {
@@ -46,12 +49,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         NSApplication.shared.setActivationPolicy(.regular)
         mainWindow?.orderFront(self)
         NSApplication.shared.activate(ignoringOtherApps: true)
+        
+        if let m = statusBarMenu {
+            m.items[0].title = "隐藏"
+            m.items[0].action = #selector(hideAction)
+        }
     }
 
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
+    func hideWindow() {
         NSApplication.shared.setActivationPolicy(.accessory)
+        mainWindow?.orderOut(self)
+        
+        if let m = statusBarMenu {
+            m.items[0].title = "显示"
+            m.items[0].action = #selector(showAction)
+        }
+    }
 
-        sender.orderOut(self)
+    func windowShouldClose(_: NSWindow) -> Bool {
+        hideWindow()
         return false
     }
 
@@ -71,6 +87,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
 
     @objc func showAction(_: AnyObject?) {
         showWindow()
+    }
+
+    @objc func hideAction(_: AnyObject?) {
+        hideWindow()
     }
 
     @objc func exitAction(_: AnyObject?) {
