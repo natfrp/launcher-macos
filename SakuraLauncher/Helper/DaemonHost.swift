@@ -91,7 +91,7 @@ class DaemonHost {
                 try? await Task.sleep(nanoseconds: 100_000_000)
                 c = c + 1
             }
-            p.terminate()
+            p.forceTerminate()
         }
     }
 }

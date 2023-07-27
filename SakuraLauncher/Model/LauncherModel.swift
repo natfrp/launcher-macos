@@ -26,7 +26,7 @@ import UserNotifications
             let loopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
             defer { try? loopGroup.syncShutdownGracefully() }
 
-            let sock = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "cr.c.natfrp")!.path + "/Library/Caches/sock"
+            let sock = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "com.natfrp")!.path + "/Library/Caches/l.sock"
 
             while true {
                 do {

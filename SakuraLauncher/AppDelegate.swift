@@ -15,6 +15,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             return
         }
 
+        if let running = NSWorkspace.shared.runningApplications
+            .first(where: { item in item.bundleIdentifier == Bundle.main.bundleIdentifier && item.processIdentifier != getpid() })
+        {
+            if !running.terminate(), !running.forceTerminate() {
+                let alert = NSAlert()
+                alert.messageText = "启动器已在运行"
+                alert.informativeText = "请在菜单栏寻找启动器图标, 不要重复开启启动器"
+                alert.alertStyle = NSAlert.Style.informational
+                alert.addButton(withTitle: "好的")
+                alert.runModal()
+
+                NSApplication.shared.terminate(self)
+            }
+
+            let alert = NSAlert()
+            alert.messageText = "请不要重复开启启动器"
+            alert.informativeText = "重复的实例已被强制结束"
+            alert.alertStyle = NSAlert.Style.informational
+            alert.addButton(withTitle: "好的")
+            alert.runModal()
+        }
+
         UNUserNotificationCenter.current().delegate = self
 
         mainWindow = NSApplication.shared.windows[0]
@@ -49,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         NSApplication.shared.setActivationPolicy(.regular)
         mainWindow?.orderFront(self)
         NSApplication.shared.activate(ignoringOtherApps: true)
-        
+
         if let m = statusBarMenu {
             m.items[0].title = "隐藏"
             m.items[0].action = #selector(hideAction)
@@ -59,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     func hideWindow() {
         NSApplication.shared.setActivationPolicy(.accessory)
         mainWindow?.orderOut(self)
-        
+
         if let m = statusBarMenu {
             m.items[0].title = "显示"
             m.items[0].action = #selector(showAction)

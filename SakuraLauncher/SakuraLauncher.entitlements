@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>cr.c.natfrp</string>
+		<string>com.natfrp</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
