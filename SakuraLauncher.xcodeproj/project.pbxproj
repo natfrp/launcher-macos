@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F60766212A7389E500FFC9B8 /* natfrp-service.app in Copy Files */ = {isa = PBXBuildFile; fileRef = F60F97B72A72B824007B5D19 /* natfrp-service.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
 		F63B3A02267AD77700BC000D /* DaemonHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B3A01267AD77700BC000D /* DaemonHost.swift */; };
 		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
@@ -32,7 +33,22 @@
 		F6E0DE1E2668E06400299C58 /* AboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0DE1D2668E06400299C58 /* AboutTab.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F60F97B32A72AFAA007B5D19 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				F60F97B92A72B82D007B5D19 /* natfrp-service.app in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F60F97B72A72B824007B5D19 /* natfrp-service.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = "natfrp-service.app"; path = "../natfrp-service.app"; sourceTree = "<group>"; };
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
 		F63B3A01267AD77700BC000D /* DaemonHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonHost.swift; sourceTree = "<group>"; };
 		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
@@ -87,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				F66A6C98266650B100FF041B /* SakuraLauncher */,
+				F60F97B72A72B824007B5D19 /* natfrp-service.app */,
 				F66A6C97266650B100FF041B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -177,6 +194,7 @@
 				F66A6C92266650B100FF041B /* Sources */,
 				F66A6C93266650B100FF041B /* Frameworks */,
 				F66A6C94266650B100FF041B /* Resources */,
+				F60F97B32A72AFAA007B5D19 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -233,6 +251,7 @@
 			files = (
 				F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */,
 				F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */,
+				F60F97B82A72B824007B5D19 /* natfrp-service.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
