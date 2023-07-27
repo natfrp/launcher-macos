@@ -10,7 +10,7 @@ struct LogoView: View {
                 .shadow(radius: 8)
             Spacer()
         }
-        .padding(.top, 4)
+        .padding(.top, 0)
         .padding(.bottom, 24)
     }
 }

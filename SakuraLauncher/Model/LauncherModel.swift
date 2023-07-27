@@ -177,10 +177,14 @@ import UserNotifications
                 } else {
                     entry.time = logDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(l.time)))
                     switch l.level {
+                    case .fatal:
+                        entry.level = .fatal
                     case .error:
                         entry.level = .error
                     case .warn:
                         entry.level = .warning
+                    case .debug:
+                        entry.level = .debug
                     case .info:
                         fallthrough
                     default:
@@ -286,6 +290,14 @@ import UserNotifications
         get { config.updateInterval > 0 }
         set {
             config.updateInterval = newValue ? 86400 : -1
+            pushServiceConfig()
+        }
+    }
+
+    var enableFrpcTls: Bool {
+        get { config.frpcForceTls }
+        set {
+            config.frpcForceTls = newValue
             pushServiceConfig()
         }
     }

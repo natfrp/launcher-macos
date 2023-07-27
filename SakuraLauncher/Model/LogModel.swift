@@ -1,9 +1,11 @@
 import SwiftUI
 
 enum LogLevel: String {
-    case info = "I",
+    case debug = "D",
+         info = "I",
          warning = "W",
-         error = "E"
+         error = "E",
+         fatal = "F"
     case none = ""
 }
 
@@ -30,6 +32,8 @@ class LogModel {
             return Color.orange
         case .error:
             return Color(red: 0.86, green: 0.31, blue: 0.21)
+        case .fatal:
+            return Color(red: 0.72, green: 0.14, blue: 0)
         default:
             return Color.white
         }

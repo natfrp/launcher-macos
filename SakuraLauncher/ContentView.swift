@@ -55,12 +55,6 @@ struct ContentView: View {
             } else {
                 updateBar
             }
-            Text("预览版 v3.0.0-ALPHA-1, 不代表稳定版使用体验")
-                .font(.system(size: 14))
-                .padding(2)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .background(Color.blue.opacity(0.5))
         }
     }
 
@@ -69,12 +63,12 @@ struct ContentView: View {
         if model.update.status == .ready {
             Button(action: {
                 if model.update.updateURL.isEmpty {
-                    // prev dev: Can't open the pkg installer programmatically due to sandboxing.
-//                     NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")])
-//                    if NSWorkspace.shared.open(URL(fileURLWithPath: u.updateReadyDir).appendingPathComponent("SakuraLauncherMac.pkg")) {
-//                        model.daemon?.stopDaemon()
-//                        NSApplication.shared.terminate(self)
-//                    }
+                    Task {
+                        model.rpcWithAlert {
+                            _ = try await model.RPC?.confirmUpdate(model.rpcEmpty)
+                            NSApplication.shared.terminate(self)
+                        }
+                    }
                 } else {
                     NSWorkspace.shared.open(URL(string: model.update.updateURL)!)
                 }
@@ -85,7 +79,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .background(Color(red: 0, green: 0.5, blue: 0.5))
             }.buttonStyle(PlainButtonStyle())
-        } else {
+        } else if model.update.status == .downloading {
             Text("下载更新中... \(Double(model.update.downloadCompleted) / 1_048_576, specifier: "%.2f")MiB/\(Double(model.update.downloadTotal) / 1_048_576, specifier: "%.2f")MiB")
                 .font(.system(size: 18))
                 .padding(4)
