@@ -4,9 +4,13 @@ import SwiftUI
 import UserNotifications
 
 @MainActor class LauncherModel: ObservableObject {
+    let preview: Bool
+
     var daemon: DaemonHost!
 
     init() {
+        preview = false
+
         UserDefaults.standard.register(defaults: [
             "logTextWrapping": true,
             "notificationMode": 0,
@@ -73,12 +77,12 @@ import UserNotifications
     @Published var notificationMode: Int {
         willSet { UserDefaults.standard.setValue(newValue, forKey: "notificationMode") }
         didSet {
-            if notificationMode != 1 {
-//                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
-//                    if !success {
-//                        self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", "通知权限被禁用")
-//                    }
-//                }
+            if !preview && notificationMode != 1 {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
+                    if !success {
+                        self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", "通知权限被禁用")
+                    }
+                }
             }
         }
     }
@@ -319,6 +323,7 @@ import UserNotifications
 #if DEBUG
     init(preview: Bool) {
         assert(preview)
+        self.preview = true
         logTextWrapping = true
         notificationMode = 1
     }
