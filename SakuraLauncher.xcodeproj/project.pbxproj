@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F60766212A7389E500FFC9B8 /* natfrp-service.app in Copy Files */ = {isa = PBXBuildFile; fileRef = F60F97B72A72B824007B5D19 /* natfrp-service.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F61018572A73B7FD0040609A /* natfrp-service.app in Copy natfrp-service */ = {isa = PBXBuildFile; fileRef = F61018422A73AD600040609A /* natfrp-service.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
 		F6337AB12A73905300100469 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6337AB02A73905200100469 /* main.swift */; };
 		F63B3A02267AD77700BC000D /* DaemonHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B3A01267AD77700BC000D /* DaemonHost.swift */; };
@@ -26,7 +26,7 @@
 		F67C759A2A737F7F00FF3E61 /* BootAgentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67C75992A737F7F00FF3E61 /* BootAgentDelegate.swift */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F69B5867267B704E006A3EBD /* RemoteConfigPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69B5866267B704E006A3EBD /* RemoteConfigPopup.swift */; };
-		F6A3EA572A738233006A9B6E /* BootAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F67C75972A737F7F00FF3E61 /* BootAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F6A3EA572A738233006A9B6E /* BootAgent.app in Copy BootAgent */ = {isa = PBXBuildFile; fileRef = F67C75972A737F7F00FF3E61 /* BootAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
@@ -39,31 +39,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F60F97B32A72AFAA007B5D19 /* Copy Files */ = {
+		F60F97B32A72AFAA007B5D19 /* Copy natfrp-service */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				F60766212A7389E500FFC9B8 /* natfrp-service.app in Copy Files */,
+				F61018572A73B7FD0040609A /* natfrp-service.app in Copy natfrp-service */,
 			);
-			name = "Copy Files";
+			name = "Copy natfrp-service";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6A3EA562A738219006A9B6E /* CopyFiles */ = {
+		F6A3EA562A738219006A9B6E /* Copy BootAgent */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				F6A3EA572A738233006A9B6E /* BootAgent.app in CopyFiles */,
+				F6A3EA572A738233006A9B6E /* BootAgent.app in Copy BootAgent */,
 			);
+			name = "Copy BootAgent";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F60F97B72A72B824007B5D19 /* natfrp-service.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = "natfrp-service.app"; path = "../natfrp-service.app"; sourceTree = "<group>"; };
+		F61018422A73AD600040609A /* natfrp-service.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "natfrp-service.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
 		F6337AB02A73905200100469 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F63B3A01267AD77700BC000D /* DaemonHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonHost.swift; sourceTree = "<group>"; };
@@ -92,6 +93,9 @@
 		F6C4786B266A17B8003E524C /* TunnelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelModel.swift; sourceTree = "<group>"; };
 		F6C74E5726C7AA8400340149 /* CreateTunnelPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTunnelPopup.swift; sourceTree = "<group>"; };
 		F6D03A852670C7250023D7B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F6DD3D122A73A44D00314139 /* natfrp-service.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "natfrp-service.entitlements"; sourceTree = "<group>"; };
+		F6DD3D132A73A44D00314139 /* frpc.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = frpc.entitlements; sourceTree = "<group>"; };
+		F6DD3D142A73A50B00314139 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6E0DE1B2668E00700299C58 /* TunnelTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelTab.swift; sourceTree = "<group>"; };
 		F6E0DE1D2668E06400299C58 /* AboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +121,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F61018432A73AD600040609A /* natfrp-service */ = {
+			isa = PBXGroup;
+			children = (
+				F6DD3D142A73A50B00314139 /* Info.plist */,
+				F6DD3D122A73A44D00314139 /* natfrp-service.entitlements */,
+				F6DD3D132A73A44D00314139 /* frpc.entitlements */,
+			);
+			path = "natfrp-service";
+			sourceTree = "<group>";
+		};
 		F62992D626776ABE0056EC1D /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,7 +147,7 @@
 			children = (
 				F66A6C98266650B100FF041B /* SakuraLauncher */,
 				F67C75982A737F7F00FF3E61 /* BootAgent */,
-				F60F97B72A72B824007B5D19 /* natfrp-service.app */,
+				F61018432A73AD600040609A /* natfrp-service */,
 				F66A6C97266650B100FF041B /* Products */,
 				F67C757D2A737B2600FF3E61 /* Frameworks */,
 			);
@@ -144,6 +158,7 @@
 			children = (
 				F66A6C96266650B100FF041B /* SakuraLauncher.app */,
 				F67C75972A737F7F00FF3E61 /* BootAgent.app */,
+				F61018422A73AD600040609A /* natfrp-service.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,6 +252,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F61018412A73AD600040609A /* natfrp-service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F610184E2A73AD610040609A /* Build configuration list for PBXNativeTarget "natfrp-service" */;
+			buildPhases = (
+				F61018512A73AEE70040609A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "natfrp-service";
+			productName = "natfrp-service";
+			productReference = F61018422A73AD600040609A /* natfrp-service.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F66A6C95266650B100FF041B /* SakuraLauncher */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F66A6CA6266650B200FF041B /* Build configuration list for PBXNativeTarget "SakuraLauncher" */;
@@ -244,8 +274,8 @@
 				F66A6C92266650B100FF041B /* Sources */,
 				F66A6C93266650B100FF041B /* Frameworks */,
 				F66A6C94266650B100FF041B /* Resources */,
-				F60F97B32A72AFAA007B5D19 /* Copy Files */,
-				F6A3EA562A738219006A9B6E /* CopyFiles */,
+				F60F97B32A72AFAA007B5D19 /* Copy natfrp-service */,
+				F6A3EA562A738219006A9B6E /* Copy BootAgent */,
 			);
 			buildRules = (
 			);
@@ -287,6 +317,9 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					F61018412A73AD600040609A = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					F66A6C95266650B100FF041B = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -314,6 +347,7 @@
 			targets = (
 				F66A6C95266650B100FF041B /* SakuraLauncher */,
 				F67C75962A737F7F00FF3E61 /* BootAgent */,
+				F61018412A73AD600040609A /* natfrp-service */,
 			);
 		};
 /* End PBXProject section */
@@ -336,6 +370,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F61018512A73AEE70040609A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_FOLDER_PATH)/frpc",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_FOLDER_PATH)/natfrp-service",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "GOARCH=\"\"\ncase $ARCHS in\n  arm64)\n    GOARCH=\"arm64\"\n    ;;\n  x86_64)\n    GOARCH=\"amd64\"\n    ;;\n  *)\n    echo \"Unsupported architecture: $ARCHS\"\n    exit 1\n    ;;\nesac\n\nout_dir=\"$TARGET_BUILD_DIR/$EXECUTABLE_FOLDER_PATH\"\n\ncp ../launcher/release/frpc_darwin_$GOARCH \"$out_dir/frpc\"\ncp ../launcher/release/natfrp_service_darwin_$GOARCH \"$out_dir/natfrp-service\"\n\nchmod +x \"$out_dir/frpc\" \"$out_dir/natfrp-service\"\n\nalias sign=\"codesign -s \\\"Developer ID Application\\\" -o runtime --timestamp --verbose=4\"\n\nsign -i com.natfrp.launcher.frpc \\\n    --entitlements \"$PROJECT_DIR/natfrp-service/frpc.entitlements\" \\\n    \"$out_dir/frpc\"\n\nsign -i \"$PRODUCT_BUNDLE_IDENTIFIER\" \\\n    --entitlements \"$PROJECT_DIR/natfrp-service/natfrp-service.entitlements\" \\\n    \"$TARGET_BUILD_DIR/$FULL_PRODUCT_NAME\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F66A6C92266650B100FF041B /* Sources */ = {
@@ -377,6 +433,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		F610184F2A73AD610040609A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				INFOPLIST_FILE = "$(SRCROOT)/natfrp-service/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F61018502A73AD610040609A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				INFOPLIST_FILE = "$(SRCROOT)/natfrp-service/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		F66A6CA4266650B200FF041B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -410,9 +490,13 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C78T4CMK47;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -436,6 +520,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -472,9 +557,13 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C78T4CMK47;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -491,6 +580,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -500,14 +590,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -517,8 +602,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher.ui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -528,15 +611,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -546,8 +623,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher.ui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -558,14 +633,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = BootAgent/BootAgent.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 iDea Leaper";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -577,10 +647,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher.boot-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -591,14 +659,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = BootAgent/BootAgent.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 iDea Leaper";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -610,16 +673,23 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher.boot-agent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F610184E2A73AD610040609A /* Build configuration list for PBXNativeTarget "natfrp-service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F610184F2A73AD610040609A /* Debug */,
+				F61018502A73AD610040609A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F66A6C91266650B100FF041B /* Build configuration list for PBXProject "SakuraLauncher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
