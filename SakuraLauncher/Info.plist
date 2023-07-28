@@ -24,5 +24,7 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2021-2023 iDea Leaper</string>
 </dict>
 </plist>

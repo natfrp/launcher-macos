@@ -24,9 +24,12 @@ class DaemonHost {
                     NSWorkspace.shared.openApplication(
                         at: Bundle.main.bundleURL.appendingPathComponent("Contents/MacOS/natfrp-service.app"),
                         configuration: opts
-                    ) { _, _ in
+                    ) { _, err in
                         // ignored, we will use findInstance to get app
                         // this async block won't be called until app exits
+                        if let err = err {
+                            print(err)
+                        }
                     }
 
                     counter += 1
@@ -34,14 +37,14 @@ class DaemonHost {
                     if counter > 4, !suppressed {
                         let t = await Task { @MainActor in
                             let alert = NSAlert()
-                            
+
                             alert.messageText = "守护进程启动失败"
                             alert.informativeText = "按 \"忽略\" 屏蔽此提示, \"终止\" 退出启动器"
                             alert.alertStyle = .critical
                             alert.addButton(withTitle: "重试")
                             alert.addButton(withTitle: "忽略")
                             alert.addButton(withTitle: "终止")
-                            
+
                             switch alert.runModal() {
                             case .alertSecondButtonReturn:
                                 return true

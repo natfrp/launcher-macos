@@ -93,6 +93,13 @@ struct SettingsTab: View {
                 }
                 .frame(width: 150)
             }
+            HStack(spacing: 16) {
+                Toggle("登录时启动守护进程", isOn: $model.launchAtLogin)
+                    .toggleStyle(SwitchToggleStyle())
+                Image(systemName: "questionmark.circle")
+                    .help("在登录时自动启动守护进程和隧道 (不包含启动器界面)\n如需自动打开启动器界面请到系统设置里添加")
+                    .font(.system(size: 16))
+            }
         }
     }
 
@@ -115,19 +122,32 @@ struct SettingsTab: View {
                 .disabled(!model.connected || !model.checkUpdate || checkingUpdate)
             }
             Divider()
-            Text("高级设置").font(.title2)
-            Toggle("强制使能 frpc TLS", isOn: $model.enableFrpcTls)
-                .toggleStyle(SwitchToggleStyle())
-                .disabled(!model.connected)
+            HStack(spacing: 8) {
+                Text("高级设置").font(.title2)
+                Image(systemName: "exclamationmark.triangle")
+                    .help("修改前请仔细阅读帮助文档, 如果您不清楚这些功能的作用, 请不要进行任何修改")
+                    .font(.title2)
+            }
+            HStack(spacing: 16) {
+                Toggle("强制使能 frpc TLS", isOn: $model.enableFrpcTls)
+                    .toggleStyle(SwitchToggleStyle())
+                    .disabled(!model.connected)
+                Image(systemName: "questionmark.circle")
+                    .help("使 frpc 全程使用 TLS 加密流量, 将有效增大 CPU 占用并显著提高延迟")
+                    .font(.system(size: 16))
+            }
             HStack(spacing: 16) {
                 Toggle("启用远程管理", isOn: $model.enableRemoteManagement)
                     .toggleStyle(SwitchToggleStyle())
                     .disabled(!model.connected || model.config.remoteManagementKey != "SET")
+                Image(systemName: "questionmark.circle")
+                    .help("通过 Sakura Frp 管理启动器, 该功能由端到端加密保护, 启用前需先设置密码")
+                    .font(.system(size: 16))
                 Button("设置密码") {
                     model.showPopup(AnyView(RemoteConfigPopup()))
                 }
             }
-            HStack(spacing: 14) {
+            HStack(spacing: 16) {
                 Button("打开工作目录") {
                     model.rpcWithAlert {
                         _ = try await model.RPC?.openCWD(model.rpcEmpty)

@@ -1,5 +1,6 @@
 import GRPC
 import NIOPosix
+import ServiceManagement
 import SwiftUI
 import UserNotifications
 
@@ -18,7 +19,13 @@ import UserNotifications
         logTextWrapping = UserDefaults.standard.bool(forKey: "logTextWrapping")
         notificationMode = UserDefaults.standard.integer(forKey: "notificationMode")
 
+        defer { notificationMode = notificationMode }
+
         logDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+
+        launchAtLogin = (SMCopyAllJobDictionaries(kSMDomainUserLaunchd)
+            .takeRetainedValue() as NSArray as! [[String: AnyObject]])
+            .contains { $0["Label"] as! String == "com.natfrp.launcher.boot-agent" }
 
         daemon = DaemonHost(self)
 
@@ -32,7 +39,6 @@ import UserNotifications
                 do {
                     try await connect(loopGroup, socket: sock)
                 } catch let e {
-                    // TODO: Alert after 3 fails
                     print(e)
                 }
 
@@ -78,7 +84,7 @@ import UserNotifications
         }
     }
 
-    @Published var connected: Bool = false
+    @Published var connected = false
 
     // MARK: - View: Launcher Settings
 
@@ -92,9 +98,17 @@ import UserNotifications
             if !preview && notificationMode != 1 {
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, _ in
                     if !success {
-                        self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限", "通知权限被禁用")
+                        self.showAlert("请到系统设置中打开 SakuraLauncher 的通知权限\n如果不想看到此提示请在启动器设置中将 \"隧道状态通知\" 设为 \"隐藏所有\"", "通知权限被禁用")
                     }
                 }
+            }
+        }
+    }
+
+    @Published var launchAtLogin: Bool {
+        didSet {
+            if (!SMLoginItemSetEnabled("com.natfrp.launcher.boot-agent" as CFString, launchAtLogin)) {
+                self.showAlert("请检查是否开启了必要的权限", "启动项设置失败")
             }
         }
     }
@@ -338,6 +352,7 @@ import UserNotifications
         self.preview = true
         logTextWrapping = true
         notificationMode = 1
+        launchAtLogin = false
     }
 #endif
 }

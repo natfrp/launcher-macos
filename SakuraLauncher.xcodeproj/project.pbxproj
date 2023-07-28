@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F60766212A7389E500FFC9B8 /* natfrp-service.app in Copy Files */ = {isa = PBXBuildFile; fileRef = F60F97B72A72B824007B5D19 /* natfrp-service.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F616B831266F72F700596A88 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F616B830266F72F700596A88 /* LogModel.swift */; };
+		F6337AB12A73905300100469 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6337AB02A73905200100469 /* main.swift */; };
 		F63B3A02267AD77700BC000D /* DaemonHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B3A01267AD77700BC000D /* DaemonHost.swift */; };
 		F6430F66266A0281007C5DC3 /* TunnelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6430F65266A0281007C5DC3 /* TunnelItemView.swift */; };
 		F64C5A9B2A6FDA9100328DB3 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = F64C5A9A2A6FDA9100328DB3 /* GRPC */; };
@@ -21,8 +22,11 @@
 		F66A6CAB2666517400FF041B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6CAA2666517400FF041B /* LogoView.swift */; };
 		F671F41E26790121003A4F87 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671F41D26790121003A4F87 /* NodeModel.swift */; };
 		F67C757C2A73749900FF3E61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F67C757B2A73749900FF3E61 /* Kingfisher */; };
+		F67C757F2A737B2600FF3E61 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67C757E2A737B2600FF3E61 /* ServiceManagement.framework */; };
+		F67C759A2A737F7F00FF3E61 /* BootAgentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67C75992A737F7F00FF3E61 /* BootAgentDelegate.swift */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F69B5867267B704E006A3EBD /* RemoteConfigPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69B5866267B704E006A3EBD /* RemoteConfigPopup.swift */; };
+		F6A3EA572A738233006A9B6E /* BootAgent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F67C75972A737F7F00FF3E61 /* BootAgent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
 		F6B47BF8266900540051B308 /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF7266900540051B308 /* SettingsTab.swift */; };
 		F6B47BFA2669005C0051B308 /* LogTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47BF92669005C0051B308 /* LogTab.swift */; };
@@ -41,9 +45,19 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				F60F97B92A72B82D007B5D19 /* natfrp-service.app in Copy Files */,
+				F60766212A7389E500FFC9B8 /* natfrp-service.app in Copy Files */,
 			);
 			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6A3EA562A738219006A9B6E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				F6A3EA572A738233006A9B6E /* BootAgent.app in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -51,6 +65,7 @@
 /* Begin PBXFileReference section */
 		F60F97B72A72B824007B5D19 /* natfrp-service.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = "natfrp-service.app"; path = "../natfrp-service.app"; sourceTree = "<group>"; };
 		F616B830266F72F700596A88 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		F6337AB02A73905200100469 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F63B3A01267AD77700BC000D /* DaemonHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonHost.swift; sourceTree = "<group>"; };
 		F6430F65266A0281007C5DC3 /* TunnelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelItemView.swift; sourceTree = "<group>"; };
 		F64C5A9C2A6FDE6C00328DB3 /* grpc_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = grpc_service.grpc.swift; sourceTree = "<group>"; };
@@ -64,9 +79,13 @@
 		F66A6CA3266650B200FF041B /* SakuraLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakuraLauncher.entitlements; sourceTree = "<group>"; };
 		F66A6CAA2666517400FF041B /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		F671F41D26790121003A4F87 /* NodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModel.swift; sourceTree = "<group>"; };
+		F67C757E2A737B2600FF3E61 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		F67C75972A737F7F00FF3E61 /* BootAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BootAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F67C75992A737F7F00FF3E61 /* BootAgentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BootAgentDelegate.swift; sourceTree = "<group>"; };
 		F698709726665C0B0040CF81 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		F69B5866267B704E006A3EBD /* RemoteConfigPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConfigPopup.swift; sourceTree = "<group>"; };
 		F6A5D441267344B700F20951 /* LauncherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModel.swift; sourceTree = "<group>"; };
+		F6AA57842A738377006EAFDC /* BootAgent.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BootAgent.entitlements; sourceTree = "<group>"; };
 		F6B47BF7266900540051B308 /* SettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
 		F6B47BF92669005C0051B308 /* LogTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTab.swift; sourceTree = "<group>"; };
 		F6B5CCAD2679BE8B0014E38A /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -82,8 +101,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67C757F2A737B2600FF3E61 /* ServiceManagement.framework in Frameworks */,
 				F67C757C2A73749900FF3E61 /* Kingfisher in Frameworks */,
 				F64C5A9B2A6FDA9100328DB3 /* GRPC in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F67C75942A737F7F00FF3E61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +132,10 @@
 			isa = PBXGroup;
 			children = (
 				F66A6C98266650B100FF041B /* SakuraLauncher */,
+				F67C75982A737F7F00FF3E61 /* BootAgent */,
 				F60F97B72A72B824007B5D19 /* natfrp-service.app */,
 				F66A6C97266650B100FF041B /* Products */,
+				F67C757D2A737B2600FF3E61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				F66A6C96266650B100FF041B /* SakuraLauncher.app */,
+				F67C75972A737F7F00FF3E61 /* BootAgent.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +187,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F67C757D2A737B2600FF3E61 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F67C757E2A737B2600FF3E61 /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F67C75982A737F7F00FF3E61 /* BootAgent */ = {
+			isa = PBXGroup;
+			children = (
+				F6AA57842A738377006EAFDC /* BootAgent.entitlements */,
+				F67C75992A737F7F00FF3E61 /* BootAgentDelegate.swift */,
+				F6337AB02A73905200100469 /* main.swift */,
+			);
+			path = BootAgent;
+			sourceTree = "<group>";
+		};
 		F6C47867266A1529003E524C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +245,7 @@
 				F66A6C93266650B100FF041B /* Frameworks */,
 				F66A6C94266650B100FF041B /* Resources */,
 				F60F97B32A72AFAA007B5D19 /* Copy Files */,
+				F6A3EA562A738219006A9B6E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -211,6 +260,23 @@
 			productReference = F66A6C96266650B100FF041B /* SakuraLauncher.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F67C75962A737F7F00FF3E61 /* BootAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F67C75A32A737F8000FF3E61 /* Build configuration list for PBXNativeTarget "BootAgent" */;
+			buildPhases = (
+				F67C75932A737F7F00FF3E61 /* Sources */,
+				F67C75942A737F7F00FF3E61 /* Frameworks */,
+				F67C75952A737F7F00FF3E61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BootAgent;
+			productName = BootAgent;
+			productReference = F67C75972A737F7F00FF3E61 /* BootAgent.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,11 +284,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					F66A6C95266650B100FF041B = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					F67C75962A737F7F00FF3E61 = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -244,6 +313,7 @@
 			projectRoot = "";
 			targets = (
 				F66A6C95266650B100FF041B /* SakuraLauncher */,
+				F67C75962A737F7F00FF3E61 /* BootAgent */,
 			);
 		};
 /* End PBXProject section */
@@ -255,7 +325,13 @@
 			files = (
 				F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */,
 				F66A6C9E266650B200FF041B /* Assets.xcassets in Resources */,
-				F60F97B82A72B824007B5D19 /* natfrp-service.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F67C75952A737F7F00FF3E61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +362,15 @@
 				F671F41E26790121003A4F87 /* NodeModel.swift in Sources */,
 				F64C5A9E2A6FDE6C00328DB3 /* grpc_service.grpc.swift in Sources */,
 				F616B831266F72F700596A88 /* LogModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F67C75932A737F7F00FF3E61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6337AB12A73905300100469 /* main.swift in Sources */,
+				F67C759A2A737F7F00FF3E61 /* BootAgentDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +551,72 @@
 			};
 			name = Release;
 		};
+		F67C75A42A737F8000FF3E61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = BootAgent/BootAgent.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 iDea Leaper";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher.boot-agent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F67C75A52A737F8000FF3E61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = BootAgent/BootAgent.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 iDea Leaper";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natfrp.launcher.boot-agent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -483,6 +634,15 @@
 			buildConfigurations = (
 				F66A6CA7266650B200FF041B /* Debug */,
 				F66A6CA8266650B200FF041B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F67C75A32A737F8000FF3E61 /* Build configuration list for PBXNativeTarget "BootAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F67C75A42A737F8000FF3E61 /* Debug */,
+				F67C75A52A737F8000FF3E61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
