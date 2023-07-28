@@ -20,6 +20,7 @@
 		F66A6CA1266650B200FF041B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F66A6CA0266650B200FF041B /* Preview Assets.xcassets */; };
 		F66A6CAB2666517400FF041B /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66A6CAA2666517400FF041B /* LogoView.swift */; };
 		F671F41E26790121003A4F87 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671F41D26790121003A4F87 /* NodeModel.swift */; };
+		F67C757C2A73749900FF3E61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F67C757B2A73749900FF3E61 /* Kingfisher */; };
 		F698709826665C0B0040CF81 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698709726665C0B0040CF81 /* TabItemView.swift */; };
 		F69B5867267B704E006A3EBD /* RemoteConfigPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69B5866267B704E006A3EBD /* RemoteConfigPopup.swift */; };
 		F6A5D442267344B700F20951 /* LauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5D441267344B700F20951 /* LauncherModel.swift */; };
@@ -81,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67C757C2A73749900FF3E61 /* Kingfisher in Frameworks */,
 				F64C5A9B2A6FDA9100328DB3 /* GRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +205,7 @@
 			name = SakuraLauncher;
 			packageProductDependencies = (
 				F64C5A9A2A6FDA9100328DB3 /* GRPC */,
+				F67C757B2A73749900FF3E61 /* Kingfisher */,
 			);
 			productName = SakuraLauncher;
 			productReference = F66A6C96266650B100FF041B /* SakuraLauncher.app */;
@@ -234,6 +237,7 @@
 			mainGroup = F66A6C8D266650B100FF041B;
 			packageReferences = (
 				F64C5A992A6FDA9100328DB3 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				F67C757A2A73749900FF3E61 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = F66A6C97266650B100FF041B /* Products */;
 			projectDirPath = "";
@@ -411,12 +415,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
-				DEVELOPMENT_TEAM = C78T4CMK47;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
@@ -424,9 +429,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher.ui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -437,12 +443,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SakuraLauncher/SakuraLauncher.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SakuraLauncher/Preview Content\"";
-				DEVELOPMENT_TEAM = C78T4CMK47;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C78T4CMK47;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SakuraLauncher/Info.plist;
@@ -450,9 +458,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.natfrp.launcher.ui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -489,6 +498,14 @@
 				minimumVersion = 1.18.0;
 			};
 		};
+		F67C757A2A73749900FF3E61 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -496,6 +513,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F64C5A992A6FDA9100328DB3 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPC;
+		};
+		F67C757B2A73749900FF3E61 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67C757A2A73749900FF3E61 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

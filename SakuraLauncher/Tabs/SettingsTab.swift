@@ -1,3 +1,4 @@
+import Kingfisher
 import SwiftUI
 
 struct SettingsTab: View {
@@ -27,13 +28,11 @@ struct SettingsTab: View {
         VStack(alignment: .leading, spacing: 16) {
             if model.user.status == .loggedIn {
                 HStack {
-                    AsyncImage(url: URL(string: model.user.avatar)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 48, height: 48)
-                    .clipShape(Circle())
+                    KFImage(URL(string: model.user.avatar)!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 48, height: 48)
+                        .clipShape(Circle())
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("#\(model.user.id) \(model.user.name)")
@@ -126,6 +125,13 @@ struct SettingsTab: View {
                     .disabled(!model.connected || model.config.remoteManagementKey != "SET")
                 Button("设置密码") {
                     model.showPopup(AnyView(RemoteConfigPopup()))
+                }
+            }
+            HStack(spacing: 14) {
+                Button("打开工作目录") {
+                    model.rpcWithAlert {
+                        _ = try await model.RPC?.openCWD(model.rpcEmpty)
+                    }
                 }
             }
         }
