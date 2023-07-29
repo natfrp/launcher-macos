@@ -18,8 +18,6 @@ struct AboutTab: View {
                 Text("版权所有 © 2021-2023 iDea Leaper")
                     .font(.title3)
                     .padding(.top, 14)
-                Link("https://github.com/natfrp/launcher", destination: URL(string: "https://github.com/natfrp/launcher")!)
-                    .padding(.top, 4)
                 Link("https://github.com/natfrp/launcher-macos", destination: URL(string: "https://github.com/natfrp/launcher-macos")!)
                     .padding(.top, 4)
             }
