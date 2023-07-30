@@ -117,6 +117,9 @@ struct SettingsTab: View {
                     checkingUpdate = true
                     model.rpcWithAlert({
                         _ = try await model.RPC?.checkUpdate(model.rpcEmpty)
+                        if model.update.status == .noUpdate {
+                            model.showAlert("当前已是最新版本", "没有可用更新")
+                        }
                     }) { checkingUpdate = false }
                 }
                 .disabled(!model.connected || !model.checkUpdate || checkingUpdate)

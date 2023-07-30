@@ -23,7 +23,7 @@ struct CreateTunnelPopup: View {
                     TextField("本地 IP", text: $local_ip).frame(width: 160)
                     TextField("端口", text: $local_port)
                 }
-                TextField("隧道名称 (留空随机)", text: $name)
+                TextField("隧道名称", text: $name)
                 TextField("备注 (可空)", text: $note)
                 HStack {
                     Picker(selection: $type, label: Text("隧道类型:")) {
@@ -33,7 +33,7 @@ struct CreateTunnelPopup: View {
                     TextField("远程端口 (留空随机)", text: $remote_port)
                 }
                 Picker(selection: $node, label: Text("穿透节点:")) {
-                    ForEach(Array(model.nodes.filter { _, v in v.acceptNew }.keys), id: \.self) { n in
+                    ForEach(Array(model.nodes.filter { _, v in v.acceptNew && v.host != "" }.keys), id: \.self) { n in
                         Text(model.nodes[n]!.friendlyName).tag(String(n))
                     }
                 }
@@ -57,7 +57,7 @@ struct CreateTunnelPopup: View {
                         return
                     }
                     creating = true
-                    model.rpcWithAlert {
+                    model.rpcWithAlert({
                         _ = try await model.RPC?.updateTunnel(.with {
                             $0.action = .add
                             $0.tunnel = Tunnel.with {
@@ -71,7 +71,7 @@ struct CreateTunnelPopup: View {
                             }
                         })
                         model.closePopup()
-                    }
+                    }) { creating = false }
                 }
                 .keyboardShortcut(.defaultAction)
                 .disabled(creating)
