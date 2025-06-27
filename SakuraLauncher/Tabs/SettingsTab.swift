@@ -154,6 +154,16 @@ struct SettingsTab: View {
                     .help("使 frpc 全程使用 TLS 加密流量, 将有效增大 CPU 占用并显著提高延迟")
                     .font(.system(size: 16))
             }
+            HStack {
+                Text("流量优化策略")
+                Menu(model.frpcTrafficOpt == 0 ? "自动" : "模式\(model.frpcTrafficOpt)") {
+                    Button("自动", action: { model.frpcTrafficOpt = 0 })
+                    ForEach(1...10, id: \.self) { i in
+                        Button("模式 \(i)", action: { model.frpcTrafficOpt = Int32(i) })
+                    }
+                }
+                .frame(width: 150)
+            }
             HStack(spacing: 16) {
                 Toggle("启用远程管理", isOn: $model.enableRemoteManagement)
                     .toggleStyle(SwitchToggleStyle())

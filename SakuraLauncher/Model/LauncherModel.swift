@@ -368,6 +368,14 @@ import UserNotifications
             pushServiceConfig()
         }
     }
+    
+    var frpcTrafficOpt: Int32 {
+        get { config.frpcTrafficOpt }
+        set {
+            config.frpcTrafficOpt = newValue
+            pushServiceConfig()
+        }
+    }
 
     var enableFrpcTls: Bool {
         get { config.frpcForceTls }

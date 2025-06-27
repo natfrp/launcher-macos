@@ -339,6 +339,14 @@ struct ServiceConfig {
 
   var frpcLogLevel: String = String()
 
+  var frpcTrafficOpt: Int32 = 0
+
+  /// read-only
+  var remoteMgmtAllowConfig: Bool = false
+
+  /// read-only
+  var remoteMgmtAllowUpdate: Bool = false
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -618,6 +626,7 @@ struct Node {
 
   var vip: Int32 = 0
 
+  /// This won't be returned by api anymore, DO NOT USE
   var band: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -1172,6 +1181,9 @@ extension ServiceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     4: .standard(proto: "remote_management_key"),
     5: .standard(proto: "frpc_force_tls"),
     6: .standard(proto: "frpc_log_level"),
+    9: .standard(proto: "frpc_traffic_opt"),
+    7: .standard(proto: "remote_mgmt_allow_config"),
+    8: .standard(proto: "remote_mgmt_allow_update"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1186,6 +1198,9 @@ extension ServiceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 4: try { try decoder.decodeSingularStringField(value: &self.remoteManagementKey) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.frpcForceTls) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.frpcLogLevel) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.remoteMgmtAllowConfig) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.remoteMgmtAllowUpdate) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.frpcTrafficOpt) }()
       default: break
       }
     }
@@ -1210,6 +1225,15 @@ extension ServiceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if !self.frpcLogLevel.isEmpty {
       try visitor.visitSingularStringField(value: self.frpcLogLevel, fieldNumber: 6)
     }
+    if self.remoteMgmtAllowConfig != false {
+      try visitor.visitSingularBoolField(value: self.remoteMgmtAllowConfig, fieldNumber: 7)
+    }
+    if self.remoteMgmtAllowUpdate != false {
+      try visitor.visitSingularBoolField(value: self.remoteMgmtAllowUpdate, fieldNumber: 8)
+    }
+    if self.frpcTrafficOpt != 0 {
+      try visitor.visitSingularInt32Field(value: self.frpcTrafficOpt, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1220,6 +1244,9 @@ extension ServiceConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.remoteManagementKey != rhs.remoteManagementKey {return false}
     if lhs.frpcForceTls != rhs.frpcForceTls {return false}
     if lhs.frpcLogLevel != rhs.frpcLogLevel {return false}
+    if lhs.frpcTrafficOpt != rhs.frpcTrafficOpt {return false}
+    if lhs.remoteMgmtAllowConfig != rhs.remoteMgmtAllowConfig {return false}
+    if lhs.remoteMgmtAllowUpdate != rhs.remoteMgmtAllowUpdate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
